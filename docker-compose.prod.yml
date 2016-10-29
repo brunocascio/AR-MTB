@@ -1,0 +1,45 @@
+version: '2'
+services:
+  db:
+    extends:
+      file: common.yml
+      service: db
+    volumes:
+      - dbdata:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: $PRODUCTION_DB_DATABASE
+      MYSQL_USER: $PRODUCTION_DB_USER
+      MYSQL_PASSWORD: $PRODUCTION_DB_PASSWORD
+      MYSQL_RANDOM_ROOT_PASSWORD: $MYSQL_RANDOM_ROOT_PASSWORD
+  web:
+    extends:
+      file: common.yml
+      service: web
+    command: bundle exec rails s -p 3000 -b '0.0.0.0'
+    depends_on:
+      - db
+    volumes:
+      - /myapp/public/assets
+    environment:
+      PORT: 3000
+      APP_DATABASE_HOST: db
+      PRODUCTION_DB_USER: $PRODUCTION_DB_USER
+      PRODUCTION_DB_DATABASE: $PRODUCTION_DB_DATABASE
+      PRODUCTION_DB_PASSWORD: $PRODUCTION_DB_PASSWORD
+      SECRET_KEY_BASE: $SECRET_KEY_BASE
+      RAILS_ENV: production
+      VIRTUAL_HOST: $APP_URL
+
+  server-proxy:
+    image: jwilder/nginx-proxy
+    container_name: nginx-proxy
+    ports:
+      - "80:80"
+    volumes_from:
+      - web
+    volumes:
+      - "/var/run/docker.sock:/tmp/docker.sock:ro"
+      - "./vhost.conf:/etc/nginx/vhost.d/${APP_URL}:ro"
+
+volumes:
+  dbdata:
