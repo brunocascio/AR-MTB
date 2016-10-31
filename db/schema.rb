@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161029205628) do
+ActiveRecord::Schema.define(version: 20161030225159) do
 
   create_table "active_admin_comments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "namespace"
@@ -43,19 +43,27 @@ ActiveRecord::Schema.define(version: 20161029205628) do
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true, using: :btree
   end
 
-  create_table "locations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "name"
+  create_table "categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "name",       null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_categories_on_name", unique: true, using: :btree
+  end
+
+  create_table "locations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "name",       null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_locations_on_name", unique: true, using: :btree
   end
 
   create_table "participants", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "firstname"
-    t.string   "lastname"
-    t.date     "birthdate"
-    t.string   "identification_number"
-    t.integer  "identification_type"
-    t.integer  "location_id"
+    t.string   "firstname",             null: false
+    t.string   "lastname",              null: false
+    t.date     "birthdate",             null: false
+    t.string   "identification_number", null: false
+    t.integer  "identification_type",   null: false
+    t.integer  "location_id",           null: false
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
     t.index ["firstname"], name: "index_participants_on_firstname", using: :btree
