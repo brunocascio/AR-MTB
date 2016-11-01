@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161030225159) do
+ActiveRecord::Schema.define(version: 20161031213638) do
 
   create_table "active_admin_comments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "namespace"
@@ -50,6 +50,13 @@ ActiveRecord::Schema.define(version: 20161030225159) do
     t.index ["name"], name: "index_categories_on_name", unique: true, using: :btree
   end
 
+  create_table "categories_subcategories", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "category_id",    null: false
+    t.integer "subcategory_id", null: false
+    t.index ["category_id", "subcategory_id"], name: "index_categories_subcategories_on_category_id_and_subcategory_id", using: :btree
+    t.index ["subcategory_id", "category_id"], name: "index_categories_subcategories_on_subcategory_id_and_category_id", using: :btree
+  end
+
   create_table "locations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name",       null: false
     t.datetime "created_at", null: false
@@ -70,6 +77,17 @@ ActiveRecord::Schema.define(version: 20161030225159) do
     t.index ["identification_number", "identification_type"], name: "id_number_and_type_index", unique: true, using: :btree
     t.index ["lastname"], name: "index_participants_on_lastname", using: :btree
     t.index ["location_id"], name: "index_participants_on_location_id", using: :btree
+  end
+
+  create_table "subcategories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "name",       null: false
+    t.integer  "age_start",  null: false
+    t.integer  "age_end",    null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["age_end"], name: "index_subcategories_on_age_end", using: :btree
+    t.index ["age_start"], name: "index_subcategories_on_age_start", using: :btree
+    t.index ["name"], name: "index_subcategories_on_name", unique: true, using: :btree
   end
 
   add_foreign_key "participants", "locations"
