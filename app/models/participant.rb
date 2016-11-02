@@ -24,11 +24,6 @@ class Participant < ApplicationRecord
   end
 
   def subcategory
-    Subcategory
-      .with_category(category)
-      .where(genre: genre)
-      .where("? >= age_start", age)
-      .where("? <= age_end", age)
-      .first
+    Subcategory.with_category(category).with_genre(genre).in_age(age).first
   end
 end
