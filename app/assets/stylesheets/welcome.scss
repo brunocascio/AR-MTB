@@ -2,6 +2,12 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-h1 {
-  color: yellow;
+body {
+  background: transparent;
+
+  h1 {
+    color: #333;
+    font-weight: bolder;
+    text-align: center;
+  }
 }
