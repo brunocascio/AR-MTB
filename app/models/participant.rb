@@ -1,6 +1,8 @@
 class Participant < ApplicationRecord
   enum identification_type: [:DNI, :LE, :LC]
+  enum genre: [:f, :m]
   belongs_to :location
+  belongs_to :category
 
   def full_name
     "#{firstname} #{lastname}"
@@ -19,5 +21,14 @@ class Participant < ApplicationRecord
 
   def age_formated
     "#{age} años"
+  end
+
+  def subcategory
+    Subcategory
+      .with_category(category)
+      .where(genre: genre)
+      .where("? >= age_start", age)
+      .where("? <= age_end", age)
+      .first
   end
 end

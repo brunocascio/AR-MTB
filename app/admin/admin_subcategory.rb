@@ -4,14 +4,15 @@ ActiveAdmin.register Subcategory do
   permit_params :name,
     :age_start,
     :age_end,
-    :categories,
+    :genre,
     category_ids: []
 
   index do
     selectable_column
     column :name
-    column :age_start
-    column :age_end
+    column :genre
+    column :age_end_formated
+    column :age_start_formated
     column :categories_formated
     actions
   end
@@ -21,6 +22,7 @@ ActiveAdmin.register Subcategory do
       f.input :name
       f.input :age_start
       f.input :age_end
+      f.input :genre
       f.input :categories, as: :check_boxes
     end
     f.actions

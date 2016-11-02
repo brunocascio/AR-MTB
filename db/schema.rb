@@ -67,12 +67,15 @@ ActiveRecord::Schema.define(version: 20161031213638) do
   create_table "participants", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "firstname",             null: false
     t.string   "lastname",              null: false
+    t.integer  "genre",                 null: false
     t.date     "birthdate",             null: false
     t.string   "identification_number", null: false
     t.integer  "identification_type",   null: false
     t.integer  "location_id",           null: false
+    t.integer  "category_id",           null: false
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
+    t.index ["category_id"], name: "index_participants_on_category_id", using: :btree
     t.index ["firstname"], name: "index_participants_on_firstname", using: :btree
     t.index ["identification_number", "identification_type"], name: "id_number_and_type_index", unique: true, using: :btree
     t.index ["lastname"], name: "index_participants_on_lastname", using: :btree
@@ -83,12 +86,12 @@ ActiveRecord::Schema.define(version: 20161031213638) do
     t.string   "name",       null: false
     t.integer  "age_start",  null: false
     t.integer  "age_end",    null: false
+    t.integer  "genre",      null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["age_end"], name: "index_subcategories_on_age_end", using: :btree
-    t.index ["age_start"], name: "index_subcategories_on_age_start", using: :btree
     t.index ["name"], name: "index_subcategories_on_name", unique: true, using: :btree
   end
 
+  add_foreign_key "participants", "categories"
   add_foreign_key "participants", "locations"
 end
