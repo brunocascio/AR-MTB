@@ -1,5 +1,6 @@
 # Ignore docker files
 .mysql/
+.git/
 commmon.yml
 docker-compose*
 Dockerfile
