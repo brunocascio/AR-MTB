@@ -1,6 +1,6 @@
 class Subcategory < ApplicationRecord
   enum genre: [:f, :m]
-  has_and_belongs_to_many :categories, join_table: 'categories_subcategories'
+  has_and_belongs_to_many :categories
 
   def categories_formated
     categories.join(', ').titleize
@@ -12,6 +12,10 @@ class Subcategory < ApplicationRecord
 
   def age_end_formated
     "#{Date.today.year - age_end} (#{age_end})"
+  end
+
+  def to_s
+    name
   end
 
   # Scopes
