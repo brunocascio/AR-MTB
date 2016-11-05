@@ -185,8 +185,8 @@ Location.create(name: 'Tres Lomas')
 Location.create(name: 'Huanguelén')
 Location.create(name: 'Guaminí')
 
-# Participants
 if Rails.env.development?
+  # Participants
   Participant.create(
     firstname: 'Pablo Antonio',
     lastname: 'Cascio',
@@ -196,5 +196,11 @@ if Rails.env.development?
     identification_number: '21345678',
     identification_type: :DNI,
     location: Location.where(name: 'Pigüé').first
+  )
+  # Championships
+  Championship.create!(
+    name: "Rural Bike (Sudoeste Pcia. Buenos Aires)",
+    year: 2016,
+    description: "this is a description"
   )
 end
