@@ -1,6 +1,7 @@
 class Participant < ApplicationRecord
   enum identification_type: [:DNI, :LE, :LC]
   enum genre: [:f, :m]
+  has_and_belongs_to_many :championships
   belongs_to :location
   belongs_to :category
 
@@ -25,5 +26,13 @@ class Participant < ApplicationRecord
 
   def subcategory
     Subcategory.with_category(category).with_genre(genre).in_age(age).first
+  end
+
+  def subcategory_formated
+    "#{subcategory} (#{category})"
+  end
+
+  def enrolled_championships
+    championships.count
   end
 end

@@ -10,13 +10,12 @@ ActiveAdmin.register Participant do
 
   index do
     selectable_column
-    column :full_name
-    column :age_formated
+    column "Name", :full_name
+    column "Age", :age_formated
     column :genre
     column :location
-    column :category
-    column :subcategory
-    column :identification
+    column "Category", :subcategory_formated
+    column "Championships", :enrolled_championships
     actions
   end
 

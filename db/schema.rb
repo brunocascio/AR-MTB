@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161105010708) do
+ActiveRecord::Schema.define(version: 20161105194435) do
 
   create_table "active_admin_comments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "namespace"
@@ -54,7 +54,6 @@ ActiveRecord::Schema.define(version: 20161105010708) do
     t.integer "category_id",    null: false
     t.integer "subcategory_id", null: false
     t.index ["category_id", "subcategory_id"], name: "index_categories_subcategories_on_category_id_and_subcategory_id", using: :btree
-    t.index ["subcategory_id", "category_id"], name: "index_categories_subcategories_on_subcategory_id_and_category_id", using: :btree
   end
 
   create_table "championships", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -64,6 +63,12 @@ ActiveRecord::Schema.define(version: 20161105010708) do
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
     t.index ["name", "year"], name: "index_championships_on_name_and_year", unique: true, using: :btree
+  end
+
+  create_table "championships_participants", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "participant_id",  null: false
+    t.integer "championship_id", null: false
+    t.index ["participant_id", "championship_id"], name: "index_part_champ_on_part_id_and_champ_id", using: :btree
   end
 
   create_table "locations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
