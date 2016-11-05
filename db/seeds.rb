@@ -21,8 +21,8 @@ competitiva = Category.create!(name: 'competitiva')
 
 ## Promocional & Competitiva
 subcat = Subcategory.create!(
-  name: 'Damas A',
-  age_start: 19,
+  name: 'A',
+  age_start: 14,
   age_end: 35,
   genre: :f
 )
@@ -30,7 +30,7 @@ subcat.categories << [promocional, competitiva]
 subcat.save
 
 subcat = Subcategory.create!(
-  name: 'Damas B',
+  name: 'B',
   age_start: 36,
   age_end: 100,
   genre: :f
@@ -149,8 +149,8 @@ subcat.save
 
 ## Only Promocional
 subcat = Subcategory.create!(
-  name: 'Caballeros A',
-  age_start: 14,
+  name: 'A',
+  age_start: 19,
   age_end: 35,
   genre: :m
 )
@@ -158,7 +158,7 @@ subcat.categories << promocional
 subcat.save
 
 subcat = Subcategory.create!(
-  name: 'Caballeros B',
+  name: 'B',
   age_start: 36,
   age_end: 50,
   genre: :m
@@ -167,7 +167,7 @@ subcat.categories << promocional
 subcat.save
 
 subcat = Subcategory.create!(
-  name: 'Caballeros C',
+  name: 'C',
   age_start: 51,
   age_end: 100,
   genre: :m
