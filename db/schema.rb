@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161105194435) do
+ActiveRecord::Schema.define(version: 20161105210217) do
 
   create_table "active_admin_comments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "namespace"
@@ -94,6 +94,20 @@ ActiveRecord::Schema.define(version: 20161105194435) do
     t.index ["identification_number", "identification_type"], name: "id_number_and_type_index", unique: true, using: :btree
     t.index ["lastname"], name: "index_participants_on_lastname", using: :btree
     t.index ["location_id"], name: "index_participants_on_location_id", using: :btree
+  end
+
+  create_table "schedules", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "number",                        null: false
+    t.date     "date",                          null: false
+    t.time     "start_time"
+    t.text     "description",     limit: 65535
+    t.integer  "location_id",                   null: false
+    t.integer  "championship_id",               null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.index ["championship_id"], name: "index_schedules_on_championship_id", using: :btree
+    t.index ["date"], name: "index_schedules_on_date", using: :btree
+    t.index ["location_id"], name: "index_schedules_on_location_id", using: :btree
   end
 
   create_table "subcategories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
