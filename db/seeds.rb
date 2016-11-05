@@ -40,13 +40,22 @@ subcat.save
 
 ## Only competitiva
 subcat = Subcategory.create!(
-  name: 'Sub 18 (Hombres)',
+  name: 'Sub 18',
   age_start: 14,
   age_end: 18,
   genre: :m
 )
 subcat.categories << competitiva
 subcat.save
+
+# subcat = Subcategory.create!(
+#   name: 'Sub 18',
+#   age_start: 14,
+#   age_end: 18,
+#   genre: :f
+# )
+# subcat.categories << competitiva
+# subcat.save
 
 subcat = Subcategory.create!(
   name: 'Elite',
@@ -56,6 +65,15 @@ subcat = Subcategory.create!(
 )
 subcat.categories << competitiva
 subcat.save
+
+# subcat = Subcategory.create!(
+#   name: 'Elite',
+#   age_start: 19,
+#   age_end: 29,
+#   genre: :f
+# )
+# subcat.categories << competitiva
+# subcat.save
 
 subcat = Subcategory.create!(
   name: 'Master A1',

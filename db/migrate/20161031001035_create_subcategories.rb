@@ -8,6 +8,6 @@ class CreateSubcategories < ActiveRecord::Migration[5.0]
 
       t.timestamps
     end
-    add_index :subcategories, :name, unique: true
+    add_index :subcategories, [:name, :genre], unique: true
   end
 end
