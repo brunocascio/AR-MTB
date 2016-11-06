@@ -16,3 +16,8 @@
 //
 //   .status_tag { background: #6090DB; }
 @import "wigu/active_admin_theme";
+@import "multi-select";
+
+.ms-container {
+  display: inline-block;
+}

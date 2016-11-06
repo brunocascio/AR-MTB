@@ -35,4 +35,8 @@ class Participant < ApplicationRecord
   def enrolled_championships
     championships.count
   end
+
+  def to_s
+    "#{full_name} (#{identification})"
+  end
 end
