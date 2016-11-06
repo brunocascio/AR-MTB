@@ -13,15 +13,15 @@ ActiveAdmin.register_page "Dashboard" do
     # Here is an example of a simple dashboard with columns and panels.
     #
     columns do
-      column do
-        panel "Info" do
-          para %(Version: #{`git describe --tags --abbrev=0`}
-            #{
-              link_to(`git rev-parse --short HEAD`,
-              "https://github.com/brunocascio/AR-MTB/commit/#{`git rev-parse HEAD`}")
-            }).html_safe
-        end
-      end
+      # column do
+      #   panel "Info" do
+      #     para %(Version: #{`git describe --tags --abbrev=0`}
+      #       #{
+      #         link_to(`git rev-parse --short HEAD`,
+      #         "https://github.com/brunocascio/AR-MTB/commit/#{`git rev-parse HEAD`}")
+      #       }).html_safe
+      #   end
+      # end
     #   column do
     #     panel "Recent Posts" do
     #       ul do
