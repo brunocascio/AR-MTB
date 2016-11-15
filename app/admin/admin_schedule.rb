@@ -12,9 +12,9 @@ ActiveAdmin.register Schedule do
   index do
     selectable_column
     column :championship
-    column "Date Number", :number
+    column :number
     column :date
-    column "Start Time", :start_time_formated
+    column :start_time_formated
     column :location
     actions
   end
@@ -24,14 +24,14 @@ ActiveAdmin.register Schedule do
       f.input :number
       f.input :date
       f.input :start_time
-      f.input :location
-      f.input :championship
+      f.input :location, as: :select2
+      f.input :championship, as: :select2
+      f.input :description
       f.has_many :races, new_record: "Add", allow_destroy: true do |a|
         a.input :kms
         a.input :lasts
-        a.input :category
+        a.input :category, as: :select2
       end
-      f.input :description
     end
     f.actions
   end

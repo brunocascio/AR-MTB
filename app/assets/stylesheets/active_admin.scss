@@ -15,9 +15,73 @@
 // For example, to change the default status-tag color:
 //
 //   .status_tag { background: #6090DB; }
-@import "wigu/active_admin_theme";
 @import "multi-select";
+@import "active_admin/select2/base";
+
+.select2 {
+  min-width: 60px;
+  .select2-container--default {
+    .select2-selection {
+      border: 1px solid #c9d0d6;
+    }
+  }
+}
 
 .ms-container {
   display: inline-block;
+  width: 80%;
+  .ms-list {
+    height: 150px;
+  }
+}
+
+.box.inputs {
+  // box-shadow: none;
+  border-bottom: 1px solid #e2e2e2;
+  border-radius: 0;
+}
+
+.inputs.has_many_fields {
+  background: #fafafa;
+}
+
+.has_many_container {
+  h3 {
+    font-size: 24px !important;
+  }
+  .has_many_container {
+    border-style: solid;
+    border-color: #e2e2e2;
+    border-width: 1px 0;
+    h3 {
+      font-size: 16px !important;
+      border-bottom: 1px solid #e2e2e2;
+      padding-bottom: 20px;
+    }
+  }
+  .ms-hover {
+    border-top: 1px solid #e2e2e2;
+  }
+}
+
+.form-inline {
+  .inline {
+    display: inline-block;
+    > * {
+      float: none;
+      width: calc(100% - 22px);
+    }
+  }
+  &.cols3 {
+    .inline {
+      width: calc((100% / 3) - 20px);
+    }
+  }
+  .has_many_delete {
+    label {
+      width: 100%;
+      display: block;
+      padding-left: 0;
+    }
+  }
 }

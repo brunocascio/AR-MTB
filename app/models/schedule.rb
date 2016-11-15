@@ -7,4 +7,8 @@ class Schedule < ApplicationRecord
   def start_time_formated
     start_time.strftime("%H:%M")
   end
+
+  def to_s
+    "#{number} => (#{championship.name.truncate 30})"
+  end
 end

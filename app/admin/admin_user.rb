@@ -1,4 +1,6 @@
 ActiveAdmin.register AdminUser, as: 'Account' do
+  menu parent: 'Dashboard'
+
   permit_params :email, :password, :password_confirmation
 
   index do

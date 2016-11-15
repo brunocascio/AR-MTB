@@ -11,18 +11,18 @@ ActiveAdmin.register Subcategory do
     selectable_column
     column :name
     column :genre
-    column :age_end_formated
     column :age_start_formated
+    column :age_end_formated
     column :categories_formated
     actions
   end
 
   form do |f|
-    f.inputs "Category Details" do
+    f.inputs t('activerecord.models.subcategory.one') do
       f.input :name
       f.input :age_start
       f.input :age_end
-      f.input :genre
+      f.input :genre, as: :select2
       f.input :categories, as: :check_boxes
     end
     f.actions

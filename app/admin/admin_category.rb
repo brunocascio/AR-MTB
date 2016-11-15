@@ -8,12 +8,4 @@ ActiveAdmin.register Category do
   end
 
   filter :name
-
-  # form do |f|
-  #   f.inputs "Category Details" do
-  #     f.input :name
-  #   end
-  #   f.actions
-  # end
-
 end

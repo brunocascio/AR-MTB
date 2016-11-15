@@ -6,4 +6,8 @@ class Championship < ApplicationRecord
   def participants_count
     participants.count
   end
+
+  def year_with_name
+    "[#{year}] #{name}"
+  end
 end

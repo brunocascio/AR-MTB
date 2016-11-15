@@ -1,0 +1,19 @@
+  es:
+    formtastic:
+      required: requerido
+      titles:
+        post_details: "Detalles de la publicación"
+      labels:
+        post:
+          title: "Elige un título..."
+          body: "Escriba aquí..."
+          edit:
+            title: "Editar título"
+      hints:
+        post:
+          title: "Escribe un título"
+          body: "Escribe aquí"
+      actions:
+        create: "Crear"
+        update: "Guardar cambios"
+        dummie: "Ejecutar!"

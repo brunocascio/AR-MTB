@@ -10,7 +10,7 @@ services:
     extends:
       file: common.yml
       service: web
-    command: sh -c "rm /myapp/tmp/pids/server.pid; rails s -b '0.0.0.0'"
+    command: sh -c "rm -f /myapp/tmp/pids/server.pid; rails s -b '0.0.0.0'"
     volumes:
       - .:/myapp
     ports:

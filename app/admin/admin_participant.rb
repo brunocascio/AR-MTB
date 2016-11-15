@@ -10,12 +10,12 @@ ActiveAdmin.register Participant do
 
   index do
     selectable_column
-    column "Name", :full_name
-    column "Age", :age_formated
+    column :full_name
+    column :age_formated
     column :genre
     column :location
-    column "Category", :subcategory_formated
-    column "Championships", :enrolled_championships
+    column :subcategory_formated
+    column :enrolled_championships
     actions
   end
 
@@ -26,5 +26,19 @@ ActiveAdmin.register Participant do
   filter :location
   filter :category
   filter :identification_number
+
+  form do |f|
+    f.inputs t("activerecord.models.participant.one") do
+      f.input :firstname
+      f.input :lastname
+      f.input :genre, as: :select2
+      f.input :birthdate
+      f.input :identification_type, as: :select2
+      f.input :identification_number
+      f.input :location, as: :select2
+      f.input :category, as: :select2
+    end
+    f.actions
+  end
 
 end
