@@ -1,4 +1,6 @@
 ActiveAdmin.register Championship do
+  menu priority: 2
+
   permit_params :name,
     :year,
     :description,

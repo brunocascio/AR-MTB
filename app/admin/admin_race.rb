@@ -1,4 +1,6 @@
 ActiveAdmin.register Race do
+  menu false
+  
   permit_params :kms, :lasts, :category_id
 
   index do

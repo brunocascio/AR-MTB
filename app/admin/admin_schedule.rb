@@ -1,6 +1,6 @@
 ActiveAdmin.register Schedule do
-  menu parent: 'Championships'
-
+  menu false
+  
   permit_params :number,
     :date,
     :start_time,

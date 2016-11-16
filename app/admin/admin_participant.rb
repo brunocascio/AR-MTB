@@ -1,4 +1,6 @@
 ActiveAdmin.register Participant do
+  menu priority: 3
+
   permit_params :firstname,
     :lastname,
     :location_id,
