@@ -47,13 +47,14 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-########################################3
+########################################
 # Custom App Gems
-########################################3
+########################################
 
 # Admin
 gem 'activeadmin', '~> 1.0.0.pre4'
 gem 'inherited_resources', github: 'activeadmin/inherited_resources'
+gem 'formadmin'
 # Forms
 gem 'multi-select-rails'
 gem 'select2-rails'

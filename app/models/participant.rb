@@ -39,4 +39,8 @@ class Participant < ApplicationRecord
   def to_s
     "#{full_name} (#{identification})"
   end
+
+  def self.with_category(category)
+    where(category: category)
+  end
 end

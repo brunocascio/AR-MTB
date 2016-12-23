@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161105232934) do
+ActiveRecord::Schema.define(version: 20161120184955) do
 
-  create_table "active_admin_comments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "active_admin_comments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "namespace"
     t.text     "body",          limit: 65535
     t.string   "resource_id",                 null: false
@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 20161105232934) do
     t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id", using: :btree
   end
 
-  create_table "admin_users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "admin_users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
@@ -43,20 +43,20 @@ ActiveRecord::Schema.define(version: 20161105232934) do
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true, using: :btree
   end
 
-  create_table "categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "name",       null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_categories_on_name", unique: true, using: :btree
   end
 
-  create_table "categories_subcategories", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "categories_subcategories", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.integer "category_id",    null: false
     t.integer "subcategory_id", null: false
     t.index ["category_id", "subcategory_id"], name: "index_categories_subcategories_on_category_id_and_subcategory_id", using: :btree
   end
 
-  create_table "championships", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "championships", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "name",                      null: false
     t.integer  "year",                      null: false
     t.text     "description", limit: 65535
@@ -65,20 +65,20 @@ ActiveRecord::Schema.define(version: 20161105232934) do
     t.index ["name", "year"], name: "index_championships_on_name_and_year", unique: true, using: :btree
   end
 
-  create_table "championships_participants", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "championships_participants", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.integer "participant_id",  null: false
     t.integer "championship_id", null: false
     t.index ["participant_id", "championship_id"], name: "index_part_champ_on_part_id_and_champ_id", using: :btree
   end
 
-  create_table "locations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "locations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "name",       null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_locations_on_name", unique: true, using: :btree
   end
 
-  create_table "participants", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "participants", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "firstname",             null: false
     t.string   "lastname",              null: false
     t.integer  "genre",                 null: false
@@ -96,7 +96,7 @@ ActiveRecord::Schema.define(version: 20161105232934) do
     t.index ["location_id"], name: "index_participants_on_location_id", using: :btree
   end
 
-  create_table "races", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "races", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.integer  "kms",         null: false
     t.integer  "lasts",       null: false
     t.integer  "category_id", null: false
@@ -107,7 +107,24 @@ ActiveRecord::Schema.define(version: 20161105232934) do
     t.index ["schedule_id"], name: "index_races_on_schedule_id", using: :btree
   end
 
-  create_table "schedules", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "results", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.time     "time",               null: false
+    t.integer  "position",           null: false
+    t.string   "participant_number", null: false
+    t.integer  "participant_id",     null: false
+    t.integer  "category_id",        null: false
+    t.integer  "subcategory_id",     null: false
+    t.integer  "race_id",            null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.index ["category_id"], name: "index_results_on_category_id", using: :btree
+    t.index ["participant_id", "race_id"], name: "index_results_on_participant_id_and_race_id", unique: true, using: :btree
+    t.index ["participant_id"], name: "index_results_on_participant_id", using: :btree
+    t.index ["race_id"], name: "index_results_on_race_id", using: :btree
+    t.index ["subcategory_id"], name: "index_results_on_subcategory_id", using: :btree
+  end
+
+  create_table "schedules", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.integer  "number",                        null: false
     t.date     "date",                          null: false
     t.time     "start_time"
@@ -121,7 +138,7 @@ ActiveRecord::Schema.define(version: 20161105232934) do
     t.index ["location_id"], name: "index_schedules_on_location_id", using: :btree
   end
 
-  create_table "subcategories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "subcategories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "name",       null: false
     t.integer  "age_start",  null: false
     t.integer  "age_end",    null: false
@@ -133,4 +150,8 @@ ActiveRecord::Schema.define(version: 20161105232934) do
 
   add_foreign_key "participants", "categories"
   add_foreign_key "participants", "locations"
+  add_foreign_key "results", "categories"
+  add_foreign_key "results", "participants"
+  add_foreign_key "results", "races"
+  add_foreign_key "results", "subcategories"
 end

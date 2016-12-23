@@ -1,4 +1,7 @@
 es:
+  timepicker:
+    dformat: 'HH:mm'
+    pformat: 'HH:mm:ss'
   app:
     global:
       detail: Detalle
@@ -26,6 +29,9 @@ es:
       race:
         one: Carrera
         other: Carreras
+      result:
+        one: Resultado
+        other: Resultados
     attributes:
       location:
         name: Nombre

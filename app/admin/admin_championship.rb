@@ -43,9 +43,14 @@ ActiveAdmin.register Championship do
           f.input :description
         end
       end
+      tab t('activerecord.models.participant.other') do
+        f.inputs do
+          f.input :participants, :input_html => { "data-multi-select" => true }
+        end
+      end
       tab t('activerecord.models.schedule.other') do
         f.inputs do
-          f.has_many :schedules, allow_destroy: true do |s|
+          f.has_many :schedules, allow_destroy: true, heading: false do |s|
             s.input :number
             s.input :date, as: :datepicker
             s.input :start_time
@@ -57,11 +62,6 @@ ActiveAdmin.register Championship do
               r.input :kms, wrapper_html: { class: 'inline'}
             end
           end
-        end
-      end
-      tab t('activerecord.models.participant.other') do
-        f.inputs do
-          f.input :participants, :input_html => { "data-multi-select" => true }
         end
       end
     end
@@ -77,6 +77,9 @@ ActiveAdmin.register Championship do
           column :start_time_formated
           column :location
           column :description
+          column do |s|
+            link_to "Results", admin_schedule_races_path(s.id) if s.is_old
+          end
         end
       end
       tab t('activerecord.models.participant.other') do

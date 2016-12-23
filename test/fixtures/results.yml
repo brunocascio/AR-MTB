@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  time: 2016-11-20 18:49:56
+  position: 1
+  participant_number: MyString
+  participant: one
+  participant_category: one
+  participant_subcategory: one
+
+two:
+  time: 2016-11-20 18:49:56
+  position: 1
+  participant_number: MyString
+  participant: two
+  participant_category: two
+  participant_subcategory: two
