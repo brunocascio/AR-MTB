@@ -42,13 +42,43 @@ var app = new Vue({
   },
   created() {
     this.populateChampionships();
-    this.populateCategories();
+    // this.populateCategories();
   },
   methods: {
+    _get(url) {
+      return new Promise((resolve, reject) => {
+        return this.$http
+          .get(url)
+          .then(
+            // success
+            (r) => resolve(r.json()),
+            // fails
+            (err) => {
+              console.error(err);
+              reject(arguments);
+            }
+          );
+      });
+    },
+    _post(url, data) {
+      return new Promise((resolve, reject) => {
+        return this.$http
+          .post(url, data)
+          .then(
+            // success
+            (r) => resolve(r.json()),
+            // fails
+            (err) => {
+              console.error(err);
+              reject(arguments);
+            }
+          );
+      });
+    },
     populateChampionships() {
-      return this.$http.get('/admin/championships.json')
-      .then((response) => response.json())
-      .then((json) => this.championships = json);
+      this._get('/admin/championships.json')
+        .then((json) => this.championships = json)
+        .catch((error) => this.championships = []);
     },
     populateSchedules(championship_id) {
       return this.$http.get('/admin/championships/'+championship_id+'/schedules.json')
@@ -78,12 +108,10 @@ var app = new Vue({
       .then((json) => this.participants = json);
     },
     fetchResults() {
-      var q = "?";
-      q += "q[subcategory_id_eq]=" + this.subcategory;
-      q += "&q[race_id_eq]=" + this.race;
-      return this.$http.get('/admin/races/1/results.json'+q)
-        .then((response) => response.json())
-        .then((json) => this.results = json);
+      const q = `q[subcategory_id_eq]=${this.subcategory}`;
+      return this._get(`/admin/races/${this.race}/results.json?${q}`)
+        .then((json) => this.results = json)
+        .catch((json) => this.results = []);
     },
     show() {
       this.freeze_form = true;
@@ -98,13 +126,9 @@ var app = new Vue({
       });
     },
     submit() {
-      const json = JSON.stringify(this.form);
-      this.$http.post('/admin/add_results/store', json)
-        .then((response) => {
-          console.log(response);
-          return response.json()
-        })
-        .then((json) => console.log(json));
+      this._post('/admin/add_results/store', JSON.stringify(this.form))
+        .then((json) => console.log(json))
+        .catch((err) => console.error(json))
     }
   },
   watch: {
@@ -123,7 +147,8 @@ var app = new Vue({
       this.populateParticipants();
     },
     subcategory() {
-      this.participants_by_subcategory = this.participants.filter((p) => p.subcategory.id == this.subcategory);
+      this.participants_by_subcategory = this.participants
+        .filter((p) => p.subcategory.id == this.subcategory);
     },
     participants() {
       this.calculateSubCategories();
