@@ -81,31 +81,30 @@ var app = new Vue({
         .catch((error) => this.championships = []);
     },
     populateSchedules(championship_id) {
-      return this.$http.get('/admin/championships/'+championship_id+'/schedules.json')
-      .then((response) => response.json())
-      .then((json) => this.schedules = json);
+      return this._get(`/admin/championships/${championship_id}/schedules.json`)
+        .then((json) => this.schedules = json)
+        .catch((err) => this.schedules = []);
     },
     populateRaces(schedule_id) {
-      return this.$http.get('/admin/schedules/'+schedule_id+'/races.json')
-      .then((response) => response.json())
-      .then((json) => this.races = json);
+      return this._get(`/admin/schedules/${schedule_id}/races.json`)
+        .then((json) => this.races = json)
+        .catch((err) => this.races = []);
     },
     populateCategories() {
-      return this.$http.get('/admin/categories.json')
-      .then((response) => response.json())
-      .then((json) => this.categories = json);
+      return this._get('/admin/categories.json')
+        .then((json) => this.categories = json)
+        .catch((err) => this.categories = []);
     },
     calculateSubCategories(cat_id) {
       var subcategories = this.participants.map((p) => p.subcategory);
       this.subcategories = uniqueBy(subcategories, (s) => s.id);
     },
     populateParticipants() {
-      var q = "?";
-      q += "q[championship_id_eq]=" + this.championship;
-      q += "&q[category_id_eq]=" + this.category;
-      this.$http.get('/admin/participants.json'+q)
-      .then((response) => response.json())
-      .then((json) => this.participants = json);
+      let q = `q[championship_id_eq]=${this.championship}`;
+      q += `&q[category_id_eq]=${this.category}`;
+      this._get(`/admin/participants.json?${q}`)
+        .then((json) => this.participants = json)
+        .catch((err) => this.participants = []);
     },
     fetchResults() {
       const q = `q[subcategory_id_eq]=${this.subcategory}`;
@@ -127,8 +126,7 @@ var app = new Vue({
     },
     submit() {
       this._post('/admin/add_results/store', JSON.stringify(this.form))
-        .then((json) => console.log(json))
-        .catch((err) => console.error(json))
+        .then((json) => console.log(json));
     }
   },
   watch: {

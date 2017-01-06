@@ -15,10 +15,9 @@ ActiveAdmin.register_page "Add Results" do
      def store
        results = []
        begin
-         results = ResultHelper.parse_results!(params[:_json])
+         results = ResultHelper.validate_results!(params[:_json])
          results = Result.sync(results)
        rescue => e
-         raise e
          logger.error e.message
          render json: {message: e.message}
        else

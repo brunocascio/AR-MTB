@@ -1,8 +1,12 @@
 module ResultHelper
 
-  def self.parse_results!(json)
+  def self.validate_results!(json)
     results = []
     json.each do |obj|
+      raise "Campo 'participante' es requerido." if obj[:participant_id].nil?
+      raise "Campo 'tiempo' es requerido." if obj[:time].nil?
+      raise "Campo 'carrera' es requerido." if obj[:race_id].nil?
+      raise "Campo 'numero' es requerido." if obj[:participant_number].nil?
       @race = Race.find(obj[:race_id])
       @p = @race.schedule.championship.participants.find(obj[:participant_id])
       results << {
@@ -11,13 +15,10 @@ module ResultHelper
         category_id: @p.category.id,
         subcategory_id: @p.subcategory.id,
         participant_number: obj[:participant_number],
+        position: obj[:position] || nil,
         time: DateTime.parse(obj[:time]).strftime("%H:%M:%S"),
       }
     end
-    self.calculate_pos(results)
-  end
-
-  def self.calculate_pos(r)
-    (r.sort_by! {|r| r[:time]}).each_with_index {|r, i| r[:position] = i + 1}
+    results
   end
 end
