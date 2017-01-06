@@ -9,7 +9,7 @@ es:
   activerecord:
     models:
       championship:
-        one: Campeonatos
+        one: Campeonato
         other: Campeonatos
       category:
         one: Categoría

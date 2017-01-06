@@ -1,5 +1,6 @@
 ActiveAdmin.register Subcategory do
   menu parent: 'Categories'
+  belongs_to :category, optional: true
 
   permit_params :name,
     :age_start,

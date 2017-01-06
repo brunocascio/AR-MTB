@@ -5,6 +5,16 @@ class Participant < ApplicationRecord
   belongs_to :location
   belongs_to :category
 
+  def as_json(options={})
+    super({
+      include: {
+        subcategory: {only: [ :name, :id ]},
+        category: {only: [ :name, :id ]}
+      },
+      only: [ :firstname, :lastname, :id ]
+    })
+  end
+
   def full_name
     "#{firstname} #{lastname}"
   end

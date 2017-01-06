@@ -51,6 +51,9 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 # Custom App Gems
 ########################################
 
+#Vuejs
+gem 'vuejs-rails'
+
 # Admin
 gem 'activeadmin', '~> 1.0.0.pre4'
 gem 'inherited_resources', github: 'activeadmin/inherited_resources'

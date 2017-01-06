@@ -21,14 +21,6 @@ ActiveAdmin.register Participant do
     actions
   end
 
-  filter :firstname
-  filter :lastname
-  filter :genre
-  filter :birthdate
-  filter :location
-  filter :category
-  filter :identification_number
-
   form do |f|
     f.inputs t("activerecord.models.participant.one") do
       f.input :firstname

@@ -1,0 +1,29 @@
+.results-page {
+  .inputs-headers {
+    li {
+      width: 20%;
+      float: left;
+      label {
+        float: none;
+        display: block;
+      }
+      .select2 {
+        margin-left: 0;
+        margin-top: 10px;
+      }
+      &.championship {
+        width: 30%;
+        .select2 {
+          width: 100% !important;
+        }
+      }
+      &.ok-button {
+        width: 10%;
+        margin-top: 25px;
+        > button {
+          padding: 10px 30px;
+        }
+      }
+    }
+  }
+}

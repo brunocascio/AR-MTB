@@ -4,6 +4,10 @@ class Race < ApplicationRecord
   has_many :results
   accepts_nested_attributes_for :results, :allow_destroy => true
 
+  def as_json(options={})
+    super({include: [:category]})
+  end
+
   def to_s
     "[#{category}] [Fecha: #{schedule.number}] [#{schedule.championship.name}]"
   end

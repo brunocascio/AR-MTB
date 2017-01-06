@@ -1,5 +1,6 @@
 ActiveAdmin.register Schedule do
   menu parent: 'Championships'
+  belongs_to :championship
 
   permit_params :number,
     :date,
@@ -33,10 +34,7 @@ ActiveAdmin.register Schedule do
       end
       tab t('activerecord.models.race.other') do
         f.inputs do
-          f.has_many :races,
-          heading: false,
-          allow_destroy: true,
-          class: 'form-inline cols3' do |a|
+          f.has_many :races, heading: false, allow_destroy: true, class: 'form-inline cols3' do |a|
             a.input :category, as: :select2, wrapper_html: {class: 'inline'}
             a.input :kms, wrapper_html: {class: 'inline'}
             a.input :lasts, wrapper_html: {class: 'inline'}

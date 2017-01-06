@@ -1,0 +1,117 @@
+<%= render 'select2' %>
+
+<div id="app" class="results-page">
+
+  <form class="form" method="POST">
+    <fieldset class="inputs inputs-headers">
+      <ol>
+        <li class="championship">
+          <label><%= t('activerecord.models.championship.one') %></label>
+          <select2
+            :options="championships"
+            v-model="championship"
+            :disabled="!championships.length || freeze_form">
+              <option v-for="c in championships" :value="c.id">
+                {{ c.name }}
+              </option>
+          </select2>
+        </li>
+        <li>
+          <label><%= t('activerecord.models.schedule.one') %></label>
+          <select2
+            :options="schedules"
+            v-model="schedule"
+            :disabled="freeze_form || !schedules.length">
+              <option v-for="s in schedules" :value="s.id">
+                {{ s.number }}
+              </option>
+          </select2>
+        </li>
+        <li>
+          <label><%= t('activerecord.models.race.one') %></label>
+          <select2
+            :options="races"
+            v-model="race"
+            :disabled="freeze_form || !races.length">
+              <option v-for="r in races" :value="r.id">
+                {{ r.category.name }}
+              </option>
+          </select2>
+        </li>
+        <li>
+          <label><%= t('activerecord.models.subcategory.one') %></label>
+          <select2
+            :options="races"
+            v-model="subcategory"
+            :disabled="freeze_form || !subcategories.length">
+              <option v-for="sc in subcategories" :value="sc.id">
+                {{ sc.name }}
+              </option>
+          </select2>
+        </li>
+        <li class="ok-button">
+          <button
+            type="button"
+            v-on:click="show()"
+            :disabled="freeze_form || !participants.length || !subcategory">
+              Ok
+          </button>
+        </li>
+      </ol>
+    </fieldset>
+
+    <fieldset
+      class="inputs"
+      v-if="show_table_participants && participants.length">
+      <ol>
+        <li>
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Number</th>
+                <th>Time</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="f in form">
+                <td>
+                  {{ f.participant.firstname }} {{ f.participant.lastname }}
+                </td>
+                <td>
+                  <input type="number" v-model="f.participant_number">
+                </td>
+                <td>
+                  <input
+                    type="time"
+                    min="00:00:00"
+                    max="11:59:59"
+                    step="1"
+                    v-model="f.time" />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </li>
+        <li>
+          <div class="">
+            <button
+            type="button"
+            v-if="freeze_form"
+            v-on:click="submit()">
+              Submit
+            </button>
+            <button
+              type="button"
+              v-if="freeze_form"
+              v-on:click="cancel()">
+                Cancel
+            </button>
+          </div>
+        </li>
+      </ol>
+    </fieldset>
+  </form>
+</div>
+
+<%= render 'footer' %>
