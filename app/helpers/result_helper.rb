@@ -1,14 +1,15 @@
 module ResultHelper
-  def self.parse_json(json)
+
+  def self.parse_results!(json)
     results = []
     json.each do |obj|
-      @participant = Participant.find(obj[:participant_id])
       @race = Race.find(obj[:race_id])
+      @p = @race.schedule.championship.participants.find(obj[:participant_id])
       results << {
-        participant_id: @participant.id,
+        participant_id: @p.id,
         race_id: @race.id,
-        category_id: @participant.category.id,
-        subcategory_id: @participant.subcategory.id,
+        category_id: @p.category.id,
+        subcategory_id: @p.subcategory.id,
         participant_number: obj[:participant_number],
         time: DateTime.parse(obj[:time]).strftime("%H:%M:%S"),
       }
