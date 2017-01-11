@@ -107,7 +107,7 @@ var app = new Vue({
         .catch((err) => this.participants = []);
     },
     fetchResults() {
-      const q = `q[subcategory_id_eq]=${this.subcategory}`;
+      const q = `q[subcategory_id_eq]=${this.subcategory}&order=position_asc`;
       return this._get(`/admin/races/${this.race}/results.json?${q}`)
         .then((json) => this.results = json)
         .catch((json) => this.results = []);
@@ -115,19 +115,25 @@ var app = new Vue({
     show() {
       this.freeze_form = true;
       this.fetchResults().then((results) => {
-        // TODO: Compare results with current participant and set the data
-        // this.form = results.map((r) => {
-        //   var find = this.form.filter((e) => e.participant_id == r.participant_id);
-        //   if (find) return Object.assign({}, find, r);
-        //   return r;
-        // });
+        // Update local results with results from the database
+        this.form = this.form.map((e) => {
+          var res = results.find((r) => e.participant_id == r.participant.id);
+          if (!res) return e;
+          return Object.assign({}, e, res, {
+            participant_id: res.participant.id,
+            category_id: res.category.id,
+            subcategory_id: res.subcategory.id
+          });
+        })
+        .sort((a, b) => a.position < b.position)
+        .reverse();
         this.show_table_participants = true;
       });
     },
     submit() {
       this._post('/admin/add_results/store', JSON.stringify(this.form))
         .then((json) => console.log(json));
-    }
+    },
   },
   watch: {
     championship(championship_id) {
@@ -158,10 +164,10 @@ var app = new Vue({
           participant: p,
           participant_id: p.id,
           participant_number: null,
+          category: p.category,
           category_id: p.category.id,
-          category_name: p.category.name,
           subcategory_id: p.subcategory.id,
-          subcategory_name: p.subcategory.name,
+          subcategory: p.subcategory,
           race_id: this.race,
         })
       });
