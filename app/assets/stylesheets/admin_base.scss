@@ -89,6 +89,14 @@ input:disabled {
   cursor: not-allowed;
 }
 
+#notifications {
+  position: fixed;
+  top: 60px;
+  left: calc(35% / 2);
+  width: 75%;
+  z-index: 99999;
+}
+
 .site_title {
   a {
     font-size: 1.2em;

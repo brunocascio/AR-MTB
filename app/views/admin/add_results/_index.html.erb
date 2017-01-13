@@ -2,6 +2,15 @@
 
 <div id="app" class="results-page">
 
+  <div id="notifications">
+    <div class="flash flash_notice" v-if="success">
+      <!-- {{ result_form }} -->
+    </div>
+    <div class="flash flash_error" v-if="error">
+      <!-- {{ result_form }} -->
+    </div>
+  </div>
+
   <form class="form" method="POST">
     <fieldset class="inputs inputs-headers">
       <ol>
