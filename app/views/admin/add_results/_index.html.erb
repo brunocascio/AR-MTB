@@ -76,6 +76,7 @@
                 <th>Name</th>
                 <th>Number</th>
                 <th>Time</th>
+                <th>Ausente</th>
               </tr>
             </thead>
             <tbody>
@@ -84,7 +85,10 @@
                   {{ f.participant.firstname }} {{ f.participant.lastname }}
                 </td>
                 <td>
-                  <input type="number" v-model="f.participant_number">
+                  <input
+                    type="number"
+                    v-model="f.participant_number"
+                    :disabled="f.absent">
                 </td>
                 <td>
                   <input
@@ -92,7 +96,11 @@
                     min="00:00:00"
                     max="11:59:59"
                     step="1"
+                    :disabled="f.absent"
                     v-model="f.time" />
+                </td>
+                <td>
+                  <input type="checkbox" v-model="f.absent">
                 </td>
               </tr>
             </tbody>

@@ -14,7 +14,6 @@ ActiveAdmin.register Participant do
     selectable_column
     column :full_name
     column :age_formated
-    column :genre
     column :location
     column :subcategory_formated
     column :enrolled_championships
@@ -26,7 +25,9 @@ ActiveAdmin.register Participant do
       f.input :firstname
       f.input :lastname
       f.input :genre, as: :select2
-      f.input :birthdate
+      f.input :birthdate,
+        start_year: Date.today.year - 100,
+        end_year: Date.today.year - 14
       f.input :identification_type, as: :select2
       f.input :identification_number
       f.input :location, as: :select2

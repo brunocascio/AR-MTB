@@ -50,7 +50,7 @@ table tr td {
   padding: 10px 20px;
 }
 
-table tr td input,
+table tr td input:not([type="checkbox"]),
 table tr td .select2 {
   min-width: auto;
   width: 100% !important;
@@ -66,111 +66,37 @@ table tr th {
   background: #f2f2f2;
 }
 
-// * {
-//   text-shadow: none;
-// }
-//
-// input[type="checkbox"] {
-//   height: 15px;
-//   width: 15px;
-// }
-//
-// .breadcrumb a,
-// .breadcrumb a:link {
-//   color: #929292;
-// }
-//
-// #header {
-//   background-color: #44484b;
-//   background-image: none;
-//   height: 50px;
-//   position: fixed;
-//   box-shadow: 0 0 0 0;
-//
-  .site_title {
-    a {
-      font-size: 1.2em;
-      font-weight: bold;
-      text-decoration: none;
-      color: #fff;
-    }
+form input[type='checkbox'] {
+  width: 17px;
+  height: 17px;
+  background: #fff;
+}
+
+form input[type='checkbox']:after {
+  display: none;
+}
+
+form input[type='checkbox']:checked {
+  box-shadow: inset 0 0 0 0;
+}
+
+form .boolean label {
+  padding-left: 0;
+}
+
+input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.site_title {
+  a {
+    font-size: 1.2em;
+    font-weight: bold;
+    text-decoration: none;
+    color: #fff;
   }
-//
-//   ul.tabs {
-//     > li {
-//       font-size: 1.2em;
-//       text-shadow: none;
-//       a {
-//         color: #f2f2f2;
-//       }
-//       &.current {
-//         border-radius: 2px;
-//         a {
-//           background: transparent;
-//           border-radius: 0;
-//           font-weight: bold;
-//         }
-//       }
-//       &.has_nested {
-//         > a {
-//           background: transparent url("/assets/active_admin/nested_menu_arrow.gif") no-repeat calc(100% - 7px) 50% !important;
-//         }
-//       }
-//       ul {
-//         background: #44484b;
-//         border-radius: 0;
-//         top: 20px;
-//       }
-//     }
-//   }
-// }
-//
-// #active_admin_content {
-//   padding: 80px 30px;
-// }
-//
-// #title_bar {
-//   background-color: #dfe1e2;
-//   background-image: none;
-//   box-shadow: 0 0 0 0;
-//   border-bottom: 1px solid #e2e2e2;
-//   top: 61px;
-//
-//   .action_items span.action_item > a,
-//   .action_items span.action_item > .dropdown_menu > a {
-//     background-image: none;
-//     background: #f2f2f2;
-//     text-shadow: none;
-//     border-color: #e2e2e2;
-//   }
-//   h2 {
-//     text-shadow: none;
-//     font-size: 2.4em;
-//   }
-// }
-//
-// a.table_tools_button,
-// .table_tools .dropdown_menu_button {
-//   background-image: none;
-//   background: #f2f2f2;
-//   text-shadow: none;
-//   border-color: #e2e2e2;
-// }
-//
-// table {
-//   &.index_table th {
-//     background-image: none;
-//     text-shadow: none;
-//     box-shadow: 0 0 0 0;
-//     border-color: #e2e2e2;
-//   }
-//   .col-actions {
-//     .member_link {
-//       text-decoration: none;
-//       font-weight: bold;
-//     }
-//   }
-// }
+}
 
 .select2 {
   min-width: 220px;
@@ -191,7 +117,13 @@ table tr th {
     }
   }
 }
-//
+
+.filter_form, .fragment {
+  .select2-container {
+    margin-left: 0;
+  }
+}
+
 .ms-container {
   display: inline-block;
   width: 80%;
@@ -199,34 +131,11 @@ table tr th {
     height: 150px;
   }
 }
-//
-// // .box.inputs {
-// //   // box-shadow: none;
-// //   border-bottom: 1px solid #e2e2e2;
-// //   border-radius: 0;
-// // }
-// //
-// // .inputs.has_many_fields {
-// //   background: #fafafa;
-// // }
-// //
+
 .has_many_container {
   h3 {
     font-size: 24px !important;
   }
-// //   .has_many_container {
-// //     border-style: solid;
-// //     border-color: #e2e2e2;
-// //     border-width: 1px 0;
-// //     h3 {
-// //       font-size: 16px !important;
-// //       border-bottom: 1px solid #e2e2e2;
-// //       padding-bottom: 20px;
-// //     }
-// //   }
-// //   .ms-hover {
-// //     border-top: 1px solid #e2e2e2;
-// //   }
 }
 
 .datetime_select {
@@ -247,6 +156,10 @@ table tr th {
     > * {
       float: none;
       width: calc(100% - 22px);
+    }
+    label {
+      margin-bottom: 5px;
+      display: block;
     }
     &.select2 {
       label {

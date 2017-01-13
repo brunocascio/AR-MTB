@@ -50,17 +50,25 @@ ActiveAdmin.register Championship do
       end
       tab t('activerecord.models.schedule.other') do
         f.inputs do
-          f.has_many :schedules, allow_destroy: true, heading: false do |s|
+          f.has_many :schedules, heading: false do |s|
             s.input :number
             s.input :date, as: :datepicker
             s.input :start_time
             s.input :location, as: :select2
             s.input :description
-            s.has_many :races, allow_destroy: true, class: 'form-inline cols3 box' do |r|
+            s.has_many :races, class: 'form-inline cols3 box' do |r|
               r.input :category, as: :select2, wrapper_html: { class: 'inline'}
               r.input :lasts, wrapper_html: { class: 'inline'}
               r.input :kms, wrapper_html: { class: 'inline'}
+              r.input :_destroy,
+                :as => :boolean,
+                :required => false,
+                :label => 'Remover Carrera'
             end
+            s.input :_destroy,
+              :as => :boolean,
+              :required => false,
+              :label => 'Remover Fecha'
           end
         end
       end

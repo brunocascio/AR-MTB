@@ -37,6 +37,7 @@ var app = new Vue({
     participants_by_subcategory: [],
     show_table_participants: false,
     freeze_form: false,
+    selectAbsent: [{label: "SI", value: false}, {label: "NO", value: true}],
     // form
     form: []
   },
@@ -100,7 +101,7 @@ var app = new Vue({
       this.subcategories = uniqueBy(subcategories, (s) => s.id);
     },
     populateParticipants() {
-      let q = `q[championship_id_eq]=${this.championship}`;
+      let q = `q[championships_id_eq]=${this.championship}`;
       q += `&q[category_id_eq]=${this.category}`;
       this._get(`/admin/participants.json?${q}`)
         .then((json) => this.participants = json)
@@ -122,7 +123,8 @@ var app = new Vue({
           return Object.assign({}, e, res, {
             participant_id: res.participant.id,
             category_id: res.category.id,
-            subcategory_id: res.subcategory.id
+            subcategory_id: res.subcategory.id,
+            absent: false
           });
         })
         .sort((a, b) => a.position < b.position)
@@ -164,11 +166,13 @@ var app = new Vue({
           participant: p,
           participant_id: p.id,
           participant_number: null,
+          time: null,
           category: p.category,
           category_id: p.category.id,
           subcategory_id: p.subcategory.id,
           subcategory: p.subcategory,
           race_id: this.race,
+          absent: true
         })
       });
     }

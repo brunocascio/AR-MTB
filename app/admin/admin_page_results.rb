@@ -19,7 +19,7 @@ ActiveAdmin.register_page "Add Results" do
          results = Result.sync(results)
        rescue => e
          logger.error e.message
-         render json: {message: e.message}
+         render status: 500, json: { message: e.message }
        else
          render json: results
        end
