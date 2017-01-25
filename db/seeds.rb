@@ -186,21 +186,165 @@ Location.create(name: 'Huanguelén')
 Location.create(name: 'Guaminí')
 
 if Rails.env.development?
-  # Participants
-  Participant.create(
-    firstname: 'Pablo Antonio',
-    lastname: 'Cascio',
-    genre: :m,
-    category: competitiva,
-    birthdate: Date.parse('19-01-1971'),
-    identification_number: '21345678',
-    identification_type: :DNI,
-    location: Location.where(name: 'Pigüé').first
-  )
   # Championships
   Championship.create!(
     name: "Rural Bike (Sudoeste Pcia. Buenos Aires)",
     year: 2016,
     description: "this is a description"
   )
+
+  # Schedules
+  Schedule.create!(
+    number: 1,
+    date: Date.parse('10-04-2016'),
+    start_time: Time.parse("15:00"),
+    description: "",
+    location: Location.find_by_name("Pigüé"),
+    championship: Championship.find_by_year( 2016)
+  )
+  Schedule.create!(
+    number: 2,
+    date: Date.parse('08-05-2016'),
+    start_time: Time.parse("15:00"),
+    description: "",
+    location: Location.find_by_name("Carhué"),
+    championship: Championship.find_by_year( 2016)
+  )
+  Schedule.create!(
+    number: 3,
+    date: Date.parse('05-06-2016'),
+    start_time: Time.parse("15:00"),
+    description: "",
+    location: Location.find_by_name("Casbas"),
+    championship: Championship.find_by_year( 2016)
+  )
+  Schedule.create!(
+    number: 4,
+    date: Date.parse('03-07-2016'),
+    start_time: Time.parse("15:00"),
+    description: "",
+    location: Location.find_by_name("Daireaux"),
+    championship: Championship.find_by_year( 2016)
+  )
+  Schedule.create!(
+    number: 5,
+    date: Date.parse('07-08-2016'),
+    start_time: Time.parse("15:00"),
+    description: "",
+    location: Location.find_by_name("Salliqueló"),
+    championship: Championship.find_by_year( 2016)
+  )
+  Schedule.create!(
+    number: 6,
+    date: Date.parse('04-09-2016'),
+    start_time: Time.parse("15:00"),
+    description: "",
+    location: Location.find_by_name("Tres Lomas"),
+    championship: Championship.find_by_year( 2016)
+  )
+  Schedule.create!(
+    number: 7,
+    date: Date.parse('25-09-2016'),
+    start_time: Time.parse("15:00"),
+    description: "",
+    location: Location.find_by_name("Huanguelén"),
+    championship: Championship.find_by_year( 2016)
+  )
+  Schedule.create!(
+    number: 8,
+    date: Date.parse('23-10-2016'),
+    start_time: Time.parse("15:00"),
+    description: "",
+    location: Location.find_by_name("Guaminí"),
+    championship: Championship.find_by_year( 2016)
+  )
+
+  (1..8).each do |i|
+    Race.create!(
+      kms: 55,
+      lasts: 5,
+      category: competitiva,
+      schedule_id: i,
+    )
+    Race.create!(
+      kms: 33,
+      lasts: 3,
+      category: promocional,
+      schedule_id: i,
+    )
+  end
+
+  # Participants
+  maleNames = [
+    "Gomez Luna Mauricio",
+    "Pablo Antonio Cascio",
+    "Iriarte Gaston",
+    "Jeger Hector",
+    "Torres Juan",
+    "Barbagelata Jose L.",
+    "Rodriguez Jorge",
+    "Marquez Miguel",
+    "Lopez Ariel",
+    "Ruiz De Erenchun Ezequiel",
+    "Burrieza Eduardo",
+    "Balercia Amilcar",
+    "Guevara Bernardo",
+    "Lochbaum Rodolfo",
+    "Graff Eduardo",
+    "Jaramillo Hector",
+    "Lamas Ruben",
+    "Agis Fernando",
+    "Rojo Javier",
+    "Casali Diego",
+    "Peña Carlos",
+    "Madroñal Diego",
+    "Astudillo Miguel",
+    "Bahl Eduardo",
+    "Buffarini Sandro",
+    "Laplace Facundo",
+    "Giubengia Gabriel",
+    "Vera Isidro",
+    "Yungblut Anibal",
+    "Vergara Abelardo",
+    "Gartner Gabriel",
+    "Scasso Fabian",
+    "Buckle Gustavo"
+  ].each do |fullname|
+    first, last = fullname.split
+    Participant.create(
+      firstname: first,
+      lastname: last,
+      genre: :m,
+      category: competitiva,
+      birthdate: Date.parse("#{rand(1..27)}-#{rand(1..12)}-#{rand(1968..1972)}"),
+      identification_number: 10000000 + rand(99999999),
+      identification_type: [:DNI, :LE, :LC].sample,
+      location: Location.order("RAND()").first
+    )
+  end
+
+  femaleNames = [
+    "Marti Mirna",
+    "Perez Julieta",
+    "Vera Sosa Guillermina",
+    "Felix Jimena"
+  ].each do |fullname|
+    first, last = fullname.split
+    Participant.create(
+      firstname: first,
+      lastname: last,
+      genre: :f,
+      category: promocional,
+      birthdate: Date.parse("#{rand(1..27)}-#{rand(1..12)}-#{rand(1982..2002)}"),
+      identification_number: 10000000 + rand(99999999),
+      identification_type: [:DNI, :LE, :LC].sample,
+      location: Location.order("RAND()").first
+    )
+  end
+
+  # Assign all participants to current championship
+  c = Championship.find_by_year(2016)
+  c.participants << Participant.all
+  c.save
+
 end

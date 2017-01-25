@@ -58,6 +58,7 @@ gem 'vuejs-rails'
 gem 'activeadmin', '~> 1.0.0.pre4'
 gem 'inherited_resources', github: 'activeadmin/inherited_resources'
 gem 'formadmin'
+gem 'jquery-timepicker-rails'
 # Forms
 gem 'multi-select-rails'
 gem 'select2-rails'

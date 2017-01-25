@@ -97,12 +97,10 @@
                 </td>
                 <td>
                   <input
-                    type="time"
-                    min="00:00:00"
-                    max="11:59:59"
-                    step="1"
+                    type="text"
+                    class="timepicker"
                     :disabled="f.absent"
-                    v-model="f.time" />
+                    v-model="f.time">
                 </td>
                 <td>
                   <input

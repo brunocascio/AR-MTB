@@ -110,7 +110,7 @@ ActiveRecord::Schema.define(version: 20161120184955) do
   create_table "results", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.time     "time",                              null: false
     t.boolean  "finished",           default: true, null: false
-    t.integer  "position",                          null: false
+    t.integer  "position"
     t.string   "participant_number",                null: false
     t.integer  "participant_id",                    null: false
     t.integer  "category_id",                       null: false

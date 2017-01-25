@@ -30,6 +30,12 @@ class Result < ApplicationRecord
   end
 
   def self.set_positions(r)
-    (r.sort_by! {|r| r[:time]}).each_with_index {|r, i| r[:position] = i + 1}
+    # Marks as null position to participant that was not finish.
+    results = (r.select {|r| !r[:finished]}).each {|r| r[:position] = nil}
+    # Order participant by time
+    finished = r.select {|result| result[:finished]}
+    ordered_by_time = finished.sort_by! {|r| r[:time]}
+    # Set positions and add to results array
+    results += ordered_by_time.each_with_index {|r, i| r[:position] = i + 1}
   end
 end

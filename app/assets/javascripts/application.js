@@ -13,4 +13,9 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require jquery.timepicker.js
 //= require_tree ./frontend
+ 
+$('.timepicker').timepicker({
+  'timeFormat': 'H:i:s'
+});

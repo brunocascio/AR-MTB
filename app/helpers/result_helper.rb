@@ -34,7 +34,7 @@ module ResultHelper
           subcategory_id: @p.subcategory.id,
           participant_number: obj[:participant_number],
           position: obj[:position] || nil,
-          finished: obj[:finished],
+          finished: obj[:finished] || false,
           time: DateTime.parse(obj[:time]).strftime("%H:%M:%S"),
         }
       end

@@ -105,9 +105,11 @@ const app = new Vue({
       return this._get('/admin/categories.json')
         .then((json) => this.categories = json);
     },
-    calculateSubCategories(cat_id) {
+    calculateSubCategories() {
       var subcategories = this.participants.map((p) => p.subcategory);
-      this.subcategories = uniqueBy(subcategories, (s) => s.id);
+      if (subcategories.length) {
+        this.subcategories = uniqueBy(subcategories, (s) => s.id);
+      }
     },
     populateParticipants() {
       this.participants = [];
@@ -134,7 +136,7 @@ const app = new Vue({
             category_id: res.category.id,
             subcategory_id: res.subcategory.id,
             absent: false,
-            finished: true,
+            finished: res.finished
           });
         })
         .sort((a, b) => (a.position && b.position) ? a.position < b.position : false)
@@ -158,6 +160,9 @@ const app = new Vue({
       this._post('/admin/add_results/store', JSON.stringify(this.form))
         .then((json) => {
           this.result_form = 'Actualizado';
+          this.show_table_participants = false;
+          this.freeze_form = false;
+          setTimeout(() => { this.success = false; }, 3000);
         })
         .catch((err) => {
           this.result_form = `${err.status}: ${err.body.message}`;
@@ -202,7 +207,7 @@ const app = new Vue({
           subcategory_id: p.subcategory.id,
           subcategory: p.subcategory,
           race_id: this.race,
-          absent: true,
+          absent: false,
           finished: false
         })
       });
