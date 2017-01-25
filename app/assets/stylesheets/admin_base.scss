@@ -89,12 +89,25 @@ input:disabled {
   cursor: not-allowed;
 }
 
+[v-cloak] {
+  display: none
+}
+
 #notifications {
   position: fixed;
   top: 60px;
   left: calc(35% / 2);
   width: 75%;
   z-index: 99999;
+
+  .flash {
+    background-image: none;
+    border-width: 1px;
+
+    &.flash_notice {
+      background-color: #e6f3ed;
+    }
+  }
 }
 
 .site_title {
@@ -127,8 +140,22 @@ input:disabled {
 }
 
 .filter_form, .fragment {
+
+  .filter_date_range input[type='text'] {
+    height: 38px;
+    background-position: 100% 11px !important;
+  }
+
   .select2-container {
     margin-left: 0;
+    width: 100% !important;
+
+    & + input {
+      width: 100% !important;
+      height: 38px;
+      margin-top: 5px;
+      float: none !important;
+    }
   }
 }
 

@@ -2,6 +2,7 @@ class CreateResults < ActiveRecord::Migration[5.0]
   def change
     create_table :results do |t|
       t.time :time, null: false
+      t.boolean :finished, null: false, default: true
       t.integer :position, null: false
       t.string :participant_number, null: false
       t.references :participant, foreign_key: true, null: false, index: true

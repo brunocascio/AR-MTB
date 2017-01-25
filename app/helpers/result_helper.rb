@@ -6,8 +6,8 @@ module ResultHelper
     # Processing json
     json.each do |obj|
       # Raising exception with invalid data
-      raise "Campo 'participante' es requerido." if obj[:participant_id].nil?
-      raise "Campo 'carrera' es requerido." if obj[:race_id].nil?
+      raise "Campo 'participante' es requerido." if obj[:participant_id].blank?
+      raise "Campo 'carrera' es requerido." if obj[:race_id].blank?
 
       # Verify if the object is marked as absent.
       #   If true and exists, will remove it.
@@ -18,8 +18,8 @@ module ResultHelper
           .first
         Result.destroy(temp_r.id) unless temp_r.nil?
       else
-        raise "Campo 'tiempo' es requerido." if obj[:time].nil?
-        raise "Campo 'numero' es requerido." if obj[:participant_number].nil?
+        raise "Campo 'tiempo' es requerido." if obj[:time].blank?
+        raise "Campo 'numero' es requerido." if obj[:participant_number].blank?
         # Found the race
         @race = Race.find(obj[:race_id])
 
@@ -34,6 +34,7 @@ module ResultHelper
           subcategory_id: @p.subcategory.id,
           participant_number: obj[:participant_number],
           position: obj[:position] || nil,
+          finished: obj[:finished],
           time: DateTime.parse(obj[:time]).strftime("%H:%M:%S"),
         }
       end

@@ -15,7 +15,7 @@ function uniqueBy(arr, fn) {
   return distinct;
 }
 
-var app = new Vue({
+const app = new Vue({
   el: '#app',
   http: {
     headers: {
@@ -37,7 +37,10 @@ var app = new Vue({
     participants_by_subcategory: [],
     show_table_participants: false,
     freeze_form: false,
-    selectAbsent: [{label: "SI", value: false}, {label: "NO", value: true}],
+    success: false,
+    error: false,
+    submiting: false,
+    result_form: '',
     // form
     form: []
   },
@@ -67,11 +70,17 @@ var app = new Vue({
           .post(url, data)
           .then(
             // success
-            (r) => resolve(r.json()),
+            (r) => {
+              this.success = true;
+              this.error = false;
+              this.result_form = '';
+              resolve(r.json());
+            },
             // fails
             (err) => {
-              console.error(err);
-              reject(arguments);
+              this.success = false;
+              this.error = true;
+              reject(err);
             }
           );
       });
@@ -82,36 +91,36 @@ var app = new Vue({
         .catch((error) => this.championships = []);
     },
     populateSchedules(championship_id) {
+      this.schedules = [];
       return this._get(`/admin/championships/${championship_id}/schedules.json`)
-        .then((json) => this.schedules = json)
-        .catch((err) => this.schedules = []);
+        .then((json) => this.schedules = json);
     },
     populateRaces(schedule_id) {
+      this.races = [];
       return this._get(`/admin/schedules/${schedule_id}/races.json`)
-        .then((json) => this.races = json)
-        .catch((err) => this.races = []);
+        .then((json) => this.races = json);
     },
     populateCategories() {
+      this.categories = [];
       return this._get('/admin/categories.json')
-        .then((json) => this.categories = json)
-        .catch((err) => this.categories = []);
+        .then((json) => this.categories = json);
     },
     calculateSubCategories(cat_id) {
       var subcategories = this.participants.map((p) => p.subcategory);
       this.subcategories = uniqueBy(subcategories, (s) => s.id);
     },
     populateParticipants() {
+      this.participants = [];
       let q = `q[championships_id_eq]=${this.championship}`;
       q += `&q[category_id_eq]=${this.category}`;
       this._get(`/admin/participants.json?${q}`)
-        .then((json) => this.participants = json)
-        .catch((err) => this.participants = []);
+        .then((json) => this.participants = json);
     },
     fetchResults() {
+      this.results = [];
       const q = `q[subcategory_id_eq]=${this.subcategory}&order=position_asc`;
       return this._get(`/admin/races/${this.race}/results.json?${q}`)
-        .then((json) => this.results = json)
-        .catch((json) => this.results = []);
+        .then((json) => this.results = json);
     },
     show() {
       this.freeze_form = true;
@@ -124,17 +133,38 @@ var app = new Vue({
             participant_id: res.participant.id,
             category_id: res.category.id,
             subcategory_id: res.subcategory.id,
-            absent: false
+            absent: false,
+            finished: true,
           });
         })
-        .sort((a, b) => a.position < b.position)
+        .sort((a, b) => (a.position && b.position) ? a.position < b.position : false)
         .reverse();
         this.show_table_participants = true;
       });
     },
+    cancel() {
+      this.result_form = '';
+      this.error = false;
+      this.success = false;
+      this.submiting = false;
+      this.show_table_participants = false;
+      this.freeze_form = false;
+    },
     submit() {
+      this.result_form = '';
+      this.error = false;
+      this.success = false;
+      this.submiting = true;
       this._post('/admin/add_results/store', JSON.stringify(this.form))
-        .then((json) => console.log(json));
+        .then((json) => {
+          this.result_form = 'Actualizado';
+        })
+        .catch((err) => {
+          this.result_form = `${err.status}: ${err.body.message}`;
+        })
+        .then(() => {
+          this.submiting = false;
+        });
     },
   },
   watch: {
@@ -172,7 +202,8 @@ var app = new Vue({
           subcategory_id: p.subcategory.id,
           subcategory: p.subcategory,
           race_id: this.race,
-          absent: true
+          absent: true,
+          finished: false
         })
       });
     }

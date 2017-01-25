@@ -1,13 +1,13 @@
 <%= render 'select2' %>
 
-<div id="app" class="results-page">
+<div id="app" class="results-page" v-cloak>
 
   <div id="notifications">
     <div class="flash flash_notice" v-if="success">
-      <!-- {{ result_form }} -->
+      {{ result_form }}
     </div>
     <div class="flash flash_error" v-if="error">
-      <!-- {{ result_form }} -->
+      {{ result_form }}
     </div>
   </div>
 
@@ -59,15 +59,10 @@
           </select2>
         </li>
         <li class="ok-button">
-          <!-- <button
+          <button
             type="button"
             v-on:click="show()"
             :disabled="freeze_form || !participants.length || !subcategory">
-              Ok
-          </button> -->
-          <button
-            type="button"
-            v-on:click="show()">
               Ok
           </button>
         </li>
@@ -82,10 +77,11 @@
           <table>
             <thead>
               <tr>
-                <th>Name</th>
-                <th>Number</th>
+                <th>Nombre</th>
+                <th>Número</th>
                 <th>Time</th>
-                <th>Ausente</th>
+                <th>Finalizó?</th>
+                <th>Ausente?</th>
               </tr>
             </thead>
             <tbody>
@@ -109,6 +105,12 @@
                     v-model="f.time" />
                 </td>
                 <td>
+                  <input
+                    type="checkbox"
+                    v-model="f.finished"
+                    :disabled="f.absent">
+                </td>
+                <td>
                   <input type="checkbox" v-model="f.absent">
                 </td>
               </tr>
@@ -120,12 +122,14 @@
             <button
             type="button"
             v-if="freeze_form"
+            :disabled="submiting"
             v-on:click="submit()">
-              Submit
+              {{ (submiting) ? 'Actualizando...' : 'Actualizar' }}
             </button>
             <button
               type="button"
               v-if="freeze_form"
+              :disabled="submiting"
               v-on:click="cancel()">
                 Cancel
             </button>
