@@ -108,16 +108,17 @@ ActiveRecord::Schema.define(version: 20161120184955) do
   end
 
   create_table "results", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.time     "time",                              null: false
-    t.boolean  "finished",           default: true, null: false
+    t.time     "time"
+    t.boolean  "absent",             default: true,  null: false
+    t.boolean  "finished",           default: false, null: false
     t.integer  "position"
-    t.string   "participant_number",                null: false
-    t.integer  "participant_id",                    null: false
-    t.integer  "category_id",                       null: false
-    t.integer  "subcategory_id",                    null: false
-    t.integer  "race_id",                           null: false
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
+    t.string   "participant_number"
+    t.integer  "participant_id",                     null: false
+    t.integer  "category_id",                        null: false
+    t.integer  "subcategory_id",                     null: false
+    t.integer  "race_id",                            null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
     t.index ["category_id"], name: "index_results_on_category_id", using: :btree
     t.index ["participant_id", "race_id"], name: "index_results_on_participant_id_and_race_id", unique: true, using: :btree
     t.index ["participant_id"], name: "index_results_on_participant_id", using: :btree

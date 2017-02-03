@@ -1,0 +1,48 @@
+<fieldset class="inputs inputs-headers">
+  <ol>
+    <li class="championship">
+      <label><%= t('activerecord.models.championship.one') %></label>
+      <select2
+        :options="selectChampionships"
+        v-model="championship"
+        :disabled="!championships.length || freeze_form">
+          <option disabled value="">Seleccionar</option>
+      </select2>
+    </li>
+    <li>
+      <label><%= t('activerecord.models.schedule.one') %></label>
+      <select2
+        :options="selectSchedules"
+        v-model="schedule"
+        :disabled="freeze_form || !schedules.length">
+          <option disabled value="">Seleccionar</option>
+      </select2>
+    </li>
+    <li>
+      <label><%= t('activerecord.models.race.one') %></label>
+      <select2
+        :options="selectRaces"
+        v-model="race"
+        :disabled="freeze_form || !races.length">
+          <option disabled value="">Seleccionar</option>
+      </select2>
+    </li>
+    <li>
+      <label><%= t('activerecord.models.subcategory.one') %></label>
+      <select2
+        :options="selectSubcategories"
+        v-model="subcategory"
+        :disabled="freeze_form || !subcategories.length">
+          <option disabled value="">Seleccionar</option>
+      </select2>
+    </li>
+    <li class="ok-button">
+      <button
+        type="button"
+        v-on:click="show()"
+        :disabled="freeze_form || !participants.length || !subcategory">
+          Ok
+      </button>
+    </li>
+  </ol>
+</fieldset>

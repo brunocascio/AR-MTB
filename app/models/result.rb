@@ -4,7 +4,22 @@ class Result < ApplicationRecord
   belongs_to :subcategory
   belongs_to :race
 
+  before_validation do
+    self.participant = Participant.find(self.participant_id)
+    self.category_id = self.participant.category.id
+    self.subcategory_id = self.participant.subcategory.id
+    if self.absent?
+      self.time = nil
+      self.participant_number = nil
+    end
+    if self.absent? || !self.finished?
+      self.time = nil
+      self.position = nil
+    end
+  end
+
   def as_json(options={})
+    time_parse = Time.parse(time.to_s).strftime('%H:%M:%S') unless time.nil?
     super({
       include: {
         participant: {only: [ :firstname, :lastname, :id ]},
@@ -13,7 +28,7 @@ class Result < ApplicationRecord
       },
       except: [:updated_at, :category_id, :subcategory_id, :participant_id]
     }).merge({
-      time: Time.parse(time.to_s).strftime('%H:%M:%S')
+      time: time_parse
     })
   end
 
@@ -22,20 +37,20 @@ class Result < ApplicationRecord
     Result.transaction do
       results.each do |r|
         Result.find_or_initialize_by(
-          participant_id: r[:participant_id],
-          race_id: r[:race_id]
-        ).update(r)
+          participant_id: r.participant_id,
+          race_id: r.race_id
+        ).update(r.attributes.except("id", "created_at", "updated_at"))
       end
     end
+    results
   end
 
-  def self.set_positions(r)
-    # Marks as null position to participant that was not finish.
-    results = (r.select {|r| !r[:finished]}).each {|r| r[:position] = nil}
-    # Order participant by time
-    finished = r.select {|result| result[:finished]}
-    ordered_by_time = finished.sort_by! {|r| r[:time]}
-    # Set positions and add to results array
-    results += ordered_by_time.each_with_index {|r, i| r[:position] = i + 1}
+  def self.set_positions(results)
+    ordered = results.reject { |r| r.time.nil? }.sort_by(&:time) + results.select { |r| r.time.nil? }
+    ordered.each_with_index do |r, i|
+      if r.finished?
+        r.position = i + 1
+      end
+    end
   end
 end

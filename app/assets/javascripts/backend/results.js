@@ -1,6 +1,8 @@
+//= require jquery.timepicker.js
 //= require vue
 //= require vue-resource
 //= require ./select2-vue
+//= require ./timepicker-vue
 
 function uniqueBy(arr, fn) {
   var unique = {};
@@ -29,10 +31,14 @@ const app = new Vue({
     subcategory: null,
     category: null,
     championships: [],
+    selectChampionships: [],
     schedules: [],
+    selectSchedules: [],
     races: [],
+    selectRaces: [],
     categories: [],
     subcategories: [],
+    selectSubcategories: [],
     participants: [],
     participants_by_subcategory: [],
     show_table_participants: false,
@@ -46,7 +52,6 @@ const app = new Vue({
   },
   created() {
     this.populateChampionships();
-    // this.populateCategories();
   },
   methods: {
     _get(url) {
@@ -106,10 +111,10 @@ const app = new Vue({
         .then((json) => this.categories = json);
     },
     calculateSubCategories() {
-      var subcategories = this.participants.map((p) => p.subcategory);
-      if (subcategories.length) {
-        this.subcategories = uniqueBy(subcategories, (s) => s.id);
-      }
+      const subcategories = this.participants
+        .filter((p) => this.category == p.category.id)
+        .map((p) => p.subcategory);
+      this.subcategories = uniqueBy(subcategories, (s) => s.id);
     },
     populateParticipants() {
       this.participants = [];
@@ -135,12 +140,13 @@ const app = new Vue({
             participant_id: res.participant.id,
             category_id: res.category.id,
             subcategory_id: res.subcategory.id,
-            absent: false,
+            absent: res.absent,
             finished: res.finished
           });
         })
-        .sort((a, b) => (a.position && b.position) ? a.position < b.position : false)
+        .sort((a, b) => a.position < b.position)
         .reverse();
+
         this.show_table_participants = true;
       });
     },
@@ -152,12 +158,25 @@ const app = new Vue({
       this.show_table_participants = false;
       this.freeze_form = false;
     },
+    _cleanForm(data) {
+      return data.map((el) => {
+        return {
+          participant_id: el.participant_id,
+          participant_number: el.participant_number,
+          time: el.time,
+          absent: el.absent,
+          finished: el.finished,
+          race_id: el.race_id
+        };
+      });
+    },
     submit() {
       this.result_form = '';
       this.error = false;
       this.success = false;
       this.submiting = true;
-      this._post('/admin/add_results/store', JSON.stringify(this.form))
+      const data = {results: this._cleanForm(this.form)};
+      this._post('/admin/add_results/store', JSON.stringify(data))
         .then((json) => {
           this.result_form = 'Actualizado';
           this.show_table_participants = false;
@@ -173,6 +192,26 @@ const app = new Vue({
     },
   },
   watch: {
+    championships() {
+      this.selectChampionships = this.championships.map((c) => {
+        return { id: c.id, text: c.name }
+      });
+    },
+    schedules() {
+      this.selectSchedules = this.schedules.map((s) => {
+        return { id: s.id, text: s.number }
+      }).reverse();
+    },
+    races() {
+      this.selectRaces = this.races.map((r) => {
+        return { id: r.id, text: r.category.name }
+      });
+    },
+    subcategories() {
+      this.selectSubcategories = this.subcategories.map((s) => {
+        return { id: s.id, text: s.name }
+      });
+    },
     championship(championship_id) {
       this.schedules = [];
       this.populateSchedules(championship_id);
