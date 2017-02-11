@@ -184,7 +184,7 @@ const app = new Vue({
           setTimeout(() => { this.success = false; }, 3000);
         })
         .catch((err) => {
-          this.result_form = `${err.status}: ${err.body.message}`;
+          this.result_form = `${err.body.message}`;
         })
         .then(() => {
           this.submiting = false;

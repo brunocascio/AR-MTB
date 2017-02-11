@@ -17,7 +17,7 @@ ActiveAdmin.register_page "Add Results" do
 
     def store
      begin
-      results = params[:results].map { |obj| Result.new(obj.to_hash) }
+      results = params[:results].map { |obj| Result.new(obj.to_unsafe_h) }
       results = Result.sync(results)
      rescue => e
        logger.error e
