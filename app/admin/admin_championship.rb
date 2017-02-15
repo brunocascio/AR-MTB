@@ -92,9 +92,11 @@ ActiveAdmin.register Championship do
         end
       end
       tab t('activerecord.models.participant.other') do
-        table_for championship.participants do
-          column(:full_name) { |p| link_to p.full_name }
-          column :subcategory_formated
+        paginated_collection(championship.participants.page(params[:page])) do
+          table_for collection do
+            column(:full_name) { |p| link_to p.full_name }
+            column :subcategory_formated
+          end
         end
       end
       tab t('activerecord.attributes.championship.description') do
