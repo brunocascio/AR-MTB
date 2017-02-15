@@ -6,6 +6,7 @@ body {
   display: none;
 }
 
+
 input[type=time]::-webkit-clear-button {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -29,6 +30,10 @@ input,
 .tabs .nav-tabs li a,
 .title_bar #titlebar_right .action_item {
   font-size: 0.9em;
+}
+
+form ol > li label {
+  font-weight: bold !important;
 }
 
 li {
@@ -70,6 +75,11 @@ form input[type='checkbox'] {
   width: 17px;
   height: 17px;
   background: #fff;
+}
+
+.sidebar_section input[type="text"] {
+  padding: 10px 12px;
+  font-size: 14px;
 }
 
 form input[type='checkbox']:after {
