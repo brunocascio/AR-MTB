@@ -86,9 +86,9 @@ ActiveAdmin.register Championship do
           column :start_time_formated
           column :location
           column :description
-          column do |s|
-            link_to "Results", admin_schedule_races_path(s.id) if s.is_old
-          end
+          # column do |s|
+          #   link_to "Results", admin_schedule_races_path(s.id) if s.is_old
+          # end
         end
       end
       tab t('activerecord.models.participant.other') do
