@@ -40,6 +40,7 @@ en:
         schedule: Fecha
         lasts: Vueltas
         category: Categoría
+        time_trial: Contra Reloj
       participant:
         firstname: Nombre
         lastname: Apellido

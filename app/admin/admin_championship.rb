@@ -56,10 +56,11 @@ ActiveAdmin.register Championship do
             s.input :start_time
             s.input :location, as: :select2
             s.input :description
-            s.has_many :races, class: 'form-inline cols3 box' do |r|
+            s.has_many :races, class: 'form-inline cols4 box' do |r|
               r.input :category, as: :select2, wrapper_html: { class: 'inline'}
               r.input :lasts, wrapper_html: { class: 'inline'}
               r.input :kms, wrapper_html: { class: 'inline'}
+              r.input :time_trial, wrapper_html: { class: 'inline'}
               r.input :_destroy,
                 :as => :boolean,
                 :required => false,
