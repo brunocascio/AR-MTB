@@ -63,6 +63,8 @@ gem 'jquery-timepicker-rails'
 gem 'multi-select-rails'
 gem 'select2-rails'
 gem 'activeadmin-select2', github: 'mfairburn/activeadmin-select2'
+gem "date_validator"
+gem 'validates_timeliness'
 
 # Auth
 gem 'devise'

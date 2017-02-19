@@ -1,8 +1,8 @@
 class Result < ApplicationRecord
-  belongs_to :participant
-  belongs_to :category
-  belongs_to :subcategory
-  belongs_to :race
+  belongs_to :participant, required: true
+  belongs_to :category, required: true
+  belongs_to :subcategory, required: true
+  belongs_to :race, required: true
 
   ##############################################################################
   # Validations

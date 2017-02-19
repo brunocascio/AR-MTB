@@ -8,6 +8,24 @@ class Championship < ApplicationRecord
   # accepts_nested_attributes_for :races, :allow_destroy => true
   # accepts_nested_attributes_for :results, :allow_destroy => true
 
+  ##############################################################################
+  # Validations
+  ##############################################################################
+
+  validates :name,
+    presence: true,
+    uniqueness: {
+      scope: :year
+    }
+
+  validates :year,
+    presence: true,
+    uniqueness: true
+
+  ##############################################################################
+  # Helpers
+  ##############################################################################
+
   def participants_count
     participants.count
   end

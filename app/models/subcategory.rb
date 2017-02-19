@@ -2,6 +2,40 @@ class Subcategory < ApplicationRecord
   enum genre: [:f, :m]
   has_and_belongs_to_many :categories
 
+  ##############################################################################
+  # Validations
+  ##############################################################################
+
+  validates :name,
+    presence: true,
+    uniqueness: {
+      scope: :genre,
+      message: 'Esta categoría ya existe.'
+    }
+
+  validates :genre,
+    inclusion: { in: genres.keys }
+
+  validates :age_start,
+    presence: true,
+    numericality: {
+      only_integer: true,
+      greater_than_or_equal_to: 14,
+      less_than: ->(record) { record.age_end || 100 }
+    }
+
+  validates :age_end,
+    presence: true,
+    numericality: {
+      only_integer: true,
+      less_than_or_equal_to: 100,
+      greater_than: ->(record) { record.age_start || 14 }
+    }
+
+  ##############################################################################
+  # Helpers
+  ##############################################################################
+
   def categories_formated
     categories.join(', ').titleize
   end
