@@ -214,21 +214,36 @@ const app = new Vue({
     },
     championship(championship_id) {
       this.schedules = [];
-      this.populateSchedules(championship_id);
+      this.schedule = null;
+      this.race = null;
+      this.subcategory = null;
+      if ( championship_id ) {
+        this.populateSchedules(championship_id);
+      }
     },
     schedule(schedule_id) {
       this.races = [];
-      this.populateRaces(schedule_id);
+      this.race = null;
+      this.subcategory = null;
+      if ( schedule_id ) {
+        this.populateRaces(schedule_id);
+      }
     },
     race(race_id) {
-      var race = this.races.filter((r) => r.id == race_id);
-      this.category = race[0].category_id;
       this.participants = [];
-      this.populateParticipants();
+      this.subcategory = null;
+      if ( race_id ) {
+        var race = this.races.filter((r) => r.id == race_id);
+        this.category = race[0].category_id;
+        this.populateParticipants();
+      }
     },
     subcategory() {
-      this.participants_by_subcategory = this.participants
+      this.participants_by_subcategory = [];
+      if ( this.subcategory ) {
+        this.participants_by_subcategory = this.participants
         .filter((p) => p.subcategory.id == this.subcategory);
+      }
     },
     participants() {
       this.calculateSubCategories();

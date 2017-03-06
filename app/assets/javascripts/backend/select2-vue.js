@@ -1,5 +1,5 @@
 Vue.component('select2', {
-  props: ['options', 'value'],
+  props: ['value'],
   template: '#select2-template',
   mounted: function () {
     var vm = this
@@ -16,10 +16,6 @@ Vue.component('select2', {
     value: function (value) {
       // update value
       $(this.$el).val(value)
-    },
-    options: function (options) {
-      // update options
-      $(this.$el).select2({ data: options })
     }
   },
   destroyed: function () {
