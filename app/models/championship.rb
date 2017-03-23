@@ -33,4 +33,13 @@ class Championship < ApplicationRecord
   def year_with_name
     "[#{year}] #{name}"
   end
+
+  ##############################################################################
+  # Scopes
+  ##############################################################################
+
+  def self.current
+    where(year: Date.today.year)
+  end
+
 end

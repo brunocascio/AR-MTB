@@ -42,4 +42,24 @@ class Schedule < ApplicationRecord
   def with_participants(category)
     championship.participants.with_category(category)
   end
+
+  ##############################################################################
+  # Scopes
+  ##############################################################################
+
+  def self.current_championship
+    where(championship: Championship.find_by!(year: Date.today.year))
+  end
+
+  def self.finishes
+    self.current_championship.where('date <= ?', Date.today).order(:date)
+  end
+
+  def self.remainings
+    self.current_championship.where('date >= ?', Date.today).order(:date)
+  end
+
+  def self.next
+    self.remainings.first
+  end
 end

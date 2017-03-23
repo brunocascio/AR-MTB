@@ -73,7 +73,6 @@ class Result < ApplicationRecord
   ##############################################################################
 
   def as_json(options={})
-    time_parse = Time.parse(time.to_s).strftime('%H:%M:%S') unless time.nil?
     super({
       include: {
         participant: {only: [ :firstname, :lastname, :id ]},
@@ -82,13 +81,21 @@ class Result < ApplicationRecord
       },
       except: [:updated_at, :category_id, :subcategory_id, :participant_id]
     }).merge({
-      time: time_parse
+      time: human_time
     })
   end
 
   ##############################################################################
   # Helpers
   ##############################################################################
+
+  def to_s
+    participant.firstname
+  end
+
+  def human_time
+    Time.parse(time.to_s).strftime('%H:%M:%S') unless time.nil?
+  end
 
   def self.sync(results)
     results = self.set_positions(results)

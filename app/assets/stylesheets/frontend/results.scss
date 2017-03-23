@@ -1,0 +1,51 @@
+.results-container {
+
+  #schedule-select {
+    width: 250px;
+    margin-top: 15px;
+  }
+
+  .nav-tabs {
+    border-bottom: 1px solid #e2e2e2;
+    margin-top: 30px;
+
+    li {
+      border: 1px solid #e2e2e2;
+      border-bottom: 0;
+      &.active {
+        background: #f2f2f2;
+      }
+    }
+  }
+
+  .tab-content {
+    padding: 30px;
+    background: white;
+    border: 1px solid #e2e2e2;
+
+    .panel-primary {
+      > .panel-heading {
+        a {
+          color: #fff;
+        }
+      }
+    }
+
+    table {
+      tr {
+        th {
+          font-weight: normal;
+          color: #333;
+        }
+        &.bold {
+          td {
+            font-weight: bold
+          }
+        }
+        td {
+          color: #555;
+        }
+      }
+    }
+  }
+}
