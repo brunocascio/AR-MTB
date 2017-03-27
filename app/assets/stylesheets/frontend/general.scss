@@ -13,6 +13,23 @@ a {
   color: #444;
 }
 
+a:hover {
+  cursor: pointer;
+}
+
+.panel {
+  &.panel-info {
+    .panel-heading {
+      background: #007EB3;
+    }
+  }
+
+  a {
+    font-weight: bold;
+    color: #007EB3;
+  }
+}
+
 .navbar {
 
   &.navbar-inverse {

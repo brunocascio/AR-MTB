@@ -39,7 +39,7 @@ class Championship < ApplicationRecord
   ##############################################################################
 
   def self.current
-    where(year: Date.today.year)
+    where(year: Date.today.year).first
   end
 
 end
