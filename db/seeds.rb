@@ -48,15 +48,6 @@ subcat = Subcategory.create!(
 subcat.categories << competitiva
 subcat.save
 
-# subcat = Subcategory.create!(
-#   name: 'Sub 18',
-#   age_start: 14,
-#   age_end: 18,
-#   genre: :f
-# )
-# subcat.categories << competitiva
-# subcat.save
-
 subcat = Subcategory.create!(
   name: 'Elite',
   age_start: 19,
@@ -65,15 +56,6 @@ subcat = Subcategory.create!(
 )
 subcat.categories << competitiva
 subcat.save
-
-# subcat = Subcategory.create!(
-#   name: 'Elite',
-#   age_start: 19,
-#   age_end: 29,
-#   genre: :f
-# )
-# subcat.categories << competitiva
-# subcat.save
 
 subcat = Subcategory.create!(
   name: 'Master A1',
@@ -177,9 +159,10 @@ subcat.save
 
 # Locations
 Location.create(name: 'Pigüé')
+Location.create(name: 'Pellegrini')
 Location.create(name: 'Carhué')
-Location.create(name: 'Casbas')
 Location.create(name: 'Daireaux')
+Location.create(name: 'Coronel Suarez')
 Location.create(name: 'Salliqueló')
 Location.create(name: 'Tres Lomas')
 Location.create(name: 'Huanguelén')
