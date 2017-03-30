@@ -17,7 +17,7 @@
           </thead>
           <tbody>
             <% @schedules.each do |s| %>
-            <tr class="<%= 'success' if @next_schedule.date == s.date %>">
+            <tr class="<%= 'success' unless @next_schedule.nil? || @next_schedule.date != s.date %>">
               <td><%= s.number %></td>
               <td><%= s.date.strftime('%d/%m/%Y') %></td>
               <td><%= s.location.name %></td>

@@ -1,6 +1,7 @@
 
 <section class="results-container container-fluid">
   <div class="col-lg-10 col-lg-offset-1 col-md-8 col-md-offset-2">
+    <% unless @schedule.nil? %>
     <div class="clearfix">
       <div class="pull-left">
         <h1 class="text-left">
@@ -22,6 +23,7 @@
         </form>
       </div>
     </div>
+    <% end %>
     <ul class="nav nav-tabs nav-justified" id="genre-tabs">
       <% @results.keys.each do |genre| %>
         <% genre_string = (genre == :f) ? 'Mujeres' : 'Hombres' %>

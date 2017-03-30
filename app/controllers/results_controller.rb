@@ -31,31 +31,35 @@ class ResultsController < ApplicationController
       end
     end
 
-    # Results query
-    # Is not sql-injectable
-    results = Result.connection
-    .select_all("
-      SELECT
-        position, finished, absent, participant_number,
-        IF(subcat.genre = 1, 'm', 'f') as genre,
-        CONCAT(p.firstname, ' ', p.lastname) as participant,
-        DATE_FORMAT(time, '%h:%i:%s') as time,
-        cat.name as category,
-        subcat.name as subcategory
-      FROM results res
-        INNER JOIN participants p on p.id = res.participant_id
-        INNER JOIN locations l on l.id = p.location_id
-        INNER JOIN categories cat on cat.id = res.category_id
-        INNER JOIN subcategories subcat on subcat.id = res.subcategory_id
-        INNER JOIN races r on r.id = res.race_id
-        INNER JOIN schedules s on s.id = r.schedule_id
-        INNER JOIN championships c on c.id = s.championship_id
-      WHERE
-        s.number = #{@schedule.number}
-      AND
-        c.year = #{@schedule.championship.year}
-      ORDER BY position
-    ")
+    unless @schedule.nil?
+      # Results query
+      # Is not sql-injectable
+      results_query = Result.connection
+        .select_all("
+          SELECT
+            position, finished, absent, participant_number,
+            IF(subcat.genre = 1, 'm', 'f') as genre,
+            CONCAT(p.firstname, ' ', p.lastname) as participant,
+            DATE_FORMAT(time, '%h:%i:%s') as time,
+            cat.name as category,
+            subcat.name as subcategory
+          FROM results res
+            INNER JOIN participants p on p.id = res.participant_id
+            INNER JOIN locations l on l.id = p.location_id
+            INNER JOIN categories cat on cat.id = res.category_id
+            INNER JOIN subcategories subcat on subcat.id = res.subcategory_id
+            INNER JOIN races r on r.id = res.race_id
+            INNER JOIN schedules s on s.id = r.schedule_id
+            INNER JOIN championships c on c.id = s.championship_id
+          WHERE
+            s.number = #{@schedule.number}
+          AND
+            c.year = #{@schedule.championship.year}
+          ORDER BY position
+        ")
+    else
+      results_query = []
+    end
 
     # Add query results to hash
     @results.keys.each do |genre|
@@ -63,7 +67,7 @@ class ResultsController < ApplicationController
       genres.keys.each do |cat|
         subcategories = genres[cat]
         subcategories.keys.each do |subcat|
-          subcategories[subcat] = results.select do |r|
+          subcategories[subcat] = results_query.select do |r|
             (r['category'] == cat.to_s) &&
             (r['subcategory'] == subcat.to_s) &&
             (r['genre'] == genre.to_s)
