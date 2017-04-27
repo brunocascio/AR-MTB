@@ -6,11 +6,13 @@ services:
       service: db
     volumes:
       - dbdata:/var/lib/mysql
+    restart: on-failure
     environment:
       MYSQL_DATABASE: $MYSQL_DATABASE
       MYSQL_USER: $MYSQL_USER
       MYSQL_PASSWORD: $MYSQL_PASSWORD
       MYSQL_RANDOM_ROOT_PASSWORD: $MYSQL_RANDOM_ROOT_PASSWORD
+      
   web:
     extends:
       file: common.yml
@@ -22,6 +24,7 @@ services:
       - db
     volumes:
       - /myapp/public/assets
+    restart: on-failure
     environment:
       PORT: 3000
       APP_DATABASE_HOST: $MYSQL_HOST
@@ -38,6 +41,7 @@ services:
     container_name: nginx-proxy
     ports:
       - "80:80"
+    restart: on-failure
     volumes_from:
       - web
     volumes:
