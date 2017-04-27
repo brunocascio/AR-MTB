@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  kms: 1
+  lasts: 1
+  category: 
+  schedule: 
+
+two:
+  kms: 1
+  lasts: 1
+  category: 
+  schedule: 

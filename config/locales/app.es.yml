@@ -1,0 +1,85 @@
+es:
+  timepicker:
+    dformat: 'HH:mm'
+    pformat: 'HH:mm:ss'
+  app:
+    global:
+      detail: Detalle
+      details: Detalles
+  activerecord:
+    models:
+      championship:
+        one: Campeonato
+        other: Campeonatos
+      category:
+        one: Categoría
+        other: Categorías
+      subcategory:
+        one: Subcategoría
+        other: Subcategorías
+      schedule:
+        one: Fecha
+        other: Fechas
+      participant:
+        one: Participante
+        other: Participantes
+      location:
+        one: Ciudad
+        other: Ciudades
+      race:
+        one: Carrera
+        other: Carreras
+      result:
+        one: Resultado
+        other: Resultados
+    attributes:
+      location:
+        name: Nombre
+      race:
+        kms: Kms
+        schedule: Fecha
+        lasts: Vueltas
+        category: Categoría
+        time_trial: Contra Reloj
+      participant:
+        firstname: Nombre
+        lastname: Apellido
+        name: Nombre
+        full_name: Nombre Completo
+        birthdate: Fecha de Nacimiento
+        identification_number: Número de Documento
+        identification_type: Tipo de Documento
+        age: Edad
+        age_formated: Edad
+        genre: Sexo
+        location: Ciudad
+        category: Categoría
+        subcategory_formated: Categoría
+        enrolled_championships: Campeonatos Inscriptos
+      championship:
+        year: Año
+        name: Nombre
+        description: Descripción
+        participants: Participantes
+        participants_count: Participantes
+      schedule:
+        championship: Campeonato
+        number: Número de Fecha
+        date: Fecha
+        start_time_formated: Horario
+        start_time: Horario
+        location: Lugar
+        description: Descripción
+        races: Carreras
+      category:
+        name: Nombre
+      subcategory:
+        genre: Sexo
+        name: Nombre
+        description: Descripción
+        age_start: Edad Mínima
+        age_end: Edad Máxima
+        age_start_formated: Edad Mínima
+        age_end_formated: Edad Máxima
+        categories_formated: Categoría(s)
+        categories: Categorías

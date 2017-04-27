@@ -1,0 +1,91 @@
+<%= render 'select2' %>
+<%= render 'timepicker' %>
+
+<div id="app" class="results-page" v-cloak>
+
+  <div id="notifications">
+    <div class="flash flash_notice" v-if="success">
+      {{ result_form }}
+    </div>
+    <div class="flash flash_error" v-if="error">
+      {{ result_form }}
+    </div>
+  </div>
+
+  <form class="form" method="POST">
+
+    <%= render 'filter' %>
+
+    <fieldset
+      class="inputs"
+      v-if="show_table_participants && participants.length">
+      <ol>
+        <li>
+          <table>
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Posicion</th>
+                <th>Ausente?</th>
+                <th>Finalizó?</th>
+                <th>Número</th>
+                <th>Tiempo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="f in form" v-bind:class="{disabled: f.absent}">
+                <td>
+                  {{ f.participant.firstname }} {{ f.participant.lastname }}
+                </td>
+                <td>
+                  {{ f.position || ((f.absent) ? "Ausente" : "-") }}
+                </td>
+                <td>
+                  <input type="checkbox" v-model="f.absent">
+                </td>
+                <td>
+                  <input
+                    type="checkbox"
+                    v-model="f.finished"
+                    :disabled="f.absent">
+                </td>
+                <td>
+                  <input
+                    type="number"
+                    v-model="f.participant_number"
+                    :disabled="f.absent">
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    :disabled="f.absent"
+                    v-model="f.time">
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </li>
+        <li>
+          <div class="">
+            <button
+            type="button"
+            v-if="freeze_form"
+            :disabled="submiting"
+            v-on:click="submit()">
+              {{ (submiting) ? 'Actualizando...' : 'Actualizar' }}
+            </button>
+            <button
+              type="button"
+              v-if="freeze_form"
+              :disabled="submiting"
+              v-on:click="cancel()">
+                Cancel
+            </button>
+          </div>
+        </li>
+      </ol>
+    </fieldset>
+  </form>
+</div>
+
+<%= render 'footer' %>

@@ -1,24 +1,23 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### Clone the project
 
-Things you may want to cover:
+`git clone https://github.com/brunocascio/AR-MTB.git && cd AR-MTB`
 
-* Ruby version
+### Replace variables into .env
 
-* System dependencies
+`cp .env.example .env`
 
-* Configuration
+### For developers
 
-* Database creation
+#### Run the application
 
-* Database initialization
+`docker-compose -f docker-compose.dev.yml up -d`
 
-* How to run the test suite
+#### Run the migrations and seeds
 
-* Services (job queues, cache servers, search engines, etc.)
+`docker-compose -f docker-compose.dev.yml exec web rake db:create db:migrate db:seed`
 
-* Deployment instructions
+#### That's all
 
-* ...
+Open your browser at `http://localhost:3001`

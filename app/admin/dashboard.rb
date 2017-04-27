@@ -15,7 +15,7 @@ ActiveAdmin.register_page "Dashboard" do
     columns do
       column do
         panel "Info" do
-          para "Welcome to ActiveAdmin."
+          para "v#{ENV['APP_VERSION']}"
         end
       end
     #   column do

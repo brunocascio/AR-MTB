@@ -3,7 +3,6 @@ ActiveAdmin.register Location do
 
   index do
     selectable_column
-    id_column
     column :name
     actions
   end
@@ -11,7 +10,7 @@ ActiveAdmin.register Location do
   filter :name
 
   form do |f|
-    f.inputs "Location Details" do
+    f.inputs t('activerecord.models.location.one') do
       f.input :name
     end
     f.actions

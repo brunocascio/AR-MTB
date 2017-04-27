@@ -1,0 +1,34 @@
+<section class="schedules-container container-fluid">
+  <div class="col-md-10 col-md-offset-1">
+    <h1><strong>Fechas <%= @championship.year %></strong></h1>
+    <hr>
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>Número</th>
+              <th>Fecha</th>
+              <th>Lugar</th>
+              <th>Horario</th>
+              <th>Descripción</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @schedules.each do |s| %>
+            <tr class="<%= 'success' unless @next_schedule.nil? || @next_schedule.date != s.date %>">
+              <td><%= s.number %></td>
+              <td><%= s.date.strftime('%d/%m/%Y') %></td>
+              <td><%= s.location.name %></td>
+              <td><%= s.start_time_formated %> hs.</td>
+              <td><%= s.description %></td>
+              <td><%= link_to "Ver Resultados", results_path(schedule: s.number) if s.date < Date.today %></td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>

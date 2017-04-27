@@ -1,4 +1,5 @@
 version: '2'
+
 services:
   db:
     extends:
@@ -10,12 +11,12 @@ services:
     extends:
       file: common.yml
       service: web
-    command: sh -c "rm /myapp/tmp/pids/server.pid; rails s -b '0.0.0.0'"
+    command: sh -c "rm -f /myapp/tmp/pids/server.pid; rails s -b '0.0.0.0'"
     volumes:
       - .:/myapp
     ports:
-      - "3000:3000"
-    depends_on:
+      - "3001:3000"
+    links:
       - db
     environment:
       - MYSQL_HOST=db

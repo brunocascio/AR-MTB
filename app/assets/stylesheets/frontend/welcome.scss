@@ -1,0 +1,13 @@
+.home-boxes {
+  .box {
+    .panel {
+      .panel-body {
+        min-height: 130px;
+      }
+    }
+    &.col-md-3 {
+      margin-left: 4%;
+      margin-right: 4%;
+    }
+  }
+}

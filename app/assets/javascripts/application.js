@@ -11,6 +11,11 @@
 // about supported directives.
 //
 //= require jquery
-//= require jquery_ujs
 //= require turbolinks
-//= require_tree .
+//= require_tree ./frontend
+
+jQuery(function($){
+  $(document).on('ready', function(){
+    $('#loader').hide();
+  })
+});

@@ -1,12 +1,14 @@
 class CreateParticipants < ActiveRecord::Migration[5.0]
   def change
     create_table :participants do |t|
-      t.string :firstname
-      t.string :lastname
-      t.date :birthdate
-      t.string :identification_number
-      t.integer :identification_type
-      t.belongs_to :location, foreign_key: true
+      t.string :firstname, null: false
+      t.string :lastname, null: false
+      t.integer :genre, null: false
+      t.date :birthdate, null: false
+      t.string :identification_number, null: false
+      t.integer :identification_type, null: false
+      t.belongs_to :location, foreign_key: true, null: false
+      t.belongs_to :category, foreign_key: true, null: false
 
       t.timestamps
     end

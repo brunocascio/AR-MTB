@@ -1,0 +1,13 @@
+- Existen 2 categorías: Promocional y Competitiva (difieren en la cantidad de kms del trayecto)
+	- Un promocional puede pasarse a competitivo, pero no viceversa.
+
+- Cada participante tendra una subcategoría cada año (según la edad) y segun LA CATEGORÍA.
+  - Validar que para promocional tiene que tener > de X edad
+
+
+- Pasos a realizar
+  - MODELO
+  - ADMIN (Back end)
+  - WEB (Front end)
+  - APP (Android)
+

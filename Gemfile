@@ -47,13 +47,24 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-########################################3
+########################################
 # Custom App Gems
-########################################3
+########################################
+
+#Vuejs
+gem 'vuejs-rails'
 
 # Admin
 gem 'activeadmin', '~> 1.0.0.pre4'
 gem 'inherited_resources', github: 'activeadmin/inherited_resources'
+gem 'formadmin'
+gem 'jquery-timepicker-rails'
+# Forms
+gem 'multi-select-rails'
+gem 'select2-rails'
+gem 'activeadmin-select2', github: 'mfairburn/activeadmin-select2'
+gem "date_validator"
+gem 'validates_timeliness'
 
 # Auth
 gem 'devise'

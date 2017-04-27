@@ -1,0 +1,64 @@
+<fieldset class="inputs inputs-headers">
+  <ol>
+    <li class="championship">
+      <label><%= t('activerecord.models.championship.one') %></label>
+      <select2
+        v-model="championship"
+        :disabled="!championships.length || freeze_form">
+          <option v-bind:value="null">Seleccionar</option>
+          <option
+            v-for="c in selectChampionships"
+            v-bind:value="c.id">
+            {{c.text}}
+          </option>
+      </select2>
+    </li>
+    <li>
+      <label><%= t('activerecord.models.schedule.one') %></label>
+      <select2
+        v-model="schedule"
+        :disabled="freeze_form || !schedules.length">
+          <option v-bind:value="null">Seleccionar</option>
+          <option
+            v-for="s in selectSchedules"
+            v-bind:value="s.id">
+            {{s.text}}
+          </option>
+      </select2>
+    </li>
+    <li>
+      <label><%= t('activerecord.models.race.one') %></label>
+      <select2
+        v-model="race"
+        :disabled="freeze_form || !races.length">
+          <option v-bind:value="null">Seleccionar</option>
+          <option
+            v-for="r in selectRaces"
+            v-bind:value="r.id">
+            {{r.text}}
+          </option>
+      </select2>
+    </li>
+    <li>
+      <label><%= t('activerecord.models.subcategory.one') %></label>
+      <select2
+        v-model="subcategory"
+        :disabled="freeze_form || !subcategories.length">
+          <option v-bind:value="null">Seleccionar</option>
+          <option
+            v-for="s in selectSubcategories"
+            v-bind:value="s.id">
+            {{s.text}}
+          </option>
+      </select2>
+    </li>
+    <li class="ok-button">
+      <button
+        type="button"
+        v-on:click="show()"
+        :disabled="freeze_form || !participants.length || !subcategory || !race || !schedule">
+          Ok
+      </button>
+    </li>
+  </ol>
+</fieldset>
