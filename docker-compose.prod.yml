@@ -6,7 +6,7 @@ services:
       service: db
     volumes:
       - dbdata:/var/lib/mysql
-    restart: on-failure
+    restart: always
     environment:
       MYSQL_DATABASE: $MYSQL_DATABASE
       MYSQL_USER: $MYSQL_USER
@@ -24,7 +24,7 @@ services:
       - db
     volumes:
       - /myapp/public/assets
-    restart: on-failure
+    restart: always
     environment:
       PORT: 3000
       APP_DATABASE_HOST: $MYSQL_HOST
@@ -41,12 +41,12 @@ services:
     container_name: nginx-proxy
     ports:
       - "80:80"
-    restart: on-failure
+    restart: always
     volumes_from:
       - web
     volumes:
       - "/var/run/docker.sock:/tmp/docker.sock:ro"
-      - "./vhost.conf:/etc/nginx/vhost.d/${APP_URL}.conf:ro"
+      - "./vhost.conf:/etc/nginx/vhost.d/${APP_URL}:ro"
 
 volumes:
   dbdata:
