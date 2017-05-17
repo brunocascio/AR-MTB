@@ -158,15 +158,16 @@ subcat.categories << promocional
 subcat.save
 
 # Locations
-Location.create(name: 'Pigüé')
-Location.create(name: 'Pellegrini')
-Location.create(name: 'Carhué')
-Location.create(name: 'Daireaux')
-Location.create(name: 'Coronel Suarez')
-Location.create(name: 'Salliqueló')
-Location.create(name: 'Tres Lomas')
-Location.create(name: 'Huanguelén')
-Location.create(name: 'Guaminí')
+pigue = Location.create(name: 'Pigüé')
+pellegrini = Location.create(name: 'Pellegrini')
+casbas = Location.create(name: 'Casbas')
+carhue = Location.create(name: 'Carhué')
+daireaux = Location.create(name: 'Daireaux')
+coronel_suarez = Location.create(name: 'Coronel Suarez')
+salliquelo = Location.create(name: 'Salliqueló')
+tres_lomas = Location.create(name: 'Tres Lomas')
+huanguelen = Location.create(name: 'Huanguelén')
+guamini = Location.create(name: 'Guaminí')
 
 if Rails.env.development?
   # Championships
@@ -182,7 +183,7 @@ if Rails.env.development?
     date: Date.parse('10-04-2016'),
     start_time: Time.parse("15:00"),
     description: "",
-    location: Location.find_by_name("Pigüé"),
+    location: pigue,
     championship: Championship.find_by_year( 2016)
   )
   Schedule.create!(
@@ -190,7 +191,7 @@ if Rails.env.development?
     date: Date.parse('08-05-2016'),
     start_time: Time.parse("15:00"),
     description: "",
-    location: Location.find_by_name("Carhué"),
+    location: carhue,
     championship: Championship.find_by_year( 2016)
   )
   Schedule.create!(
@@ -198,7 +199,7 @@ if Rails.env.development?
     date: Date.parse('05-06-2016'),
     start_time: Time.parse("15:00"),
     description: "",
-    location: Location.find_by_name("Casbas"),
+    location: casbas,
     championship: Championship.find_by_year( 2016)
   )
   Schedule.create!(
@@ -206,7 +207,7 @@ if Rails.env.development?
     date: Date.parse('03-07-2016'),
     start_time: Time.parse("15:00"),
     description: "",
-    location: Location.find_by_name("Daireaux"),
+    location: daireaux,
     championship: Championship.find_by_year( 2016)
   )
   Schedule.create!(
@@ -214,7 +215,7 @@ if Rails.env.development?
     date: Date.parse('07-08-2016'),
     start_time: Time.parse("15:00"),
     description: "",
-    location: Location.find_by_name("Salliqueló"),
+    location: salliquelo,
     championship: Championship.find_by_year( 2016)
   )
   Schedule.create!(
@@ -222,7 +223,7 @@ if Rails.env.development?
     date: Date.parse('04-09-2016'),
     start_time: Time.parse("15:00"),
     description: "",
-    location: Location.find_by_name("Tres Lomas"),
+    location: tres_lomas,
     championship: Championship.find_by_year( 2016)
   )
   Schedule.create!(
@@ -230,7 +231,7 @@ if Rails.env.development?
     date: Date.parse('25-09-2016'),
     start_time: Time.parse("15:00"),
     description: "",
-    location: Location.find_by_name("Huanguelén"),
+    location: huanguelen,
     championship: Championship.find_by_year( 2016)
   )
   Schedule.create!(
@@ -238,7 +239,7 @@ if Rails.env.development?
     date: Date.parse('23-10-2016'),
     start_time: Time.parse("15:00"),
     description: "",
-    location: Location.find_by_name("Guaminí"),
+    location: guamini,
     championship: Championship.find_by_year( 2016)
   )
 
