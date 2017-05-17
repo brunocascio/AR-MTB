@@ -16,7 +16,7 @@
 
 #### Run the migrations and seeds
 
-`docker-compose -f docker-compose.dev.yml exec web rake db:create db:migrate db:seed`
+`docker-compose -f docker-compose.dev.yml exec web sh -c "RAILS_ENV=development rake db:create db:migrate db:seed"`
 
 #### That's all
 
