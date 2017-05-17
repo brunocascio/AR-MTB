@@ -175,6 +175,12 @@ input:disabled {
   .ms-list {
     height: 150px;
   }
+
+  .search-input {
+    float: none;
+    width: 100%;
+    height: 30px;
+  }
 }
 
 .has_many_container {
