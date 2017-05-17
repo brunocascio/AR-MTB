@@ -14,7 +14,14 @@ ActiveAdmin.register Championship do
       :location_id,
       :championship_id,
       :_destroy,
-      races_attributes: [:id, :kms, :lasts, :category_id, :_destroy]
+      races_attributes: [
+        :id, 
+        :kms, 
+        :lasts, 
+        :time_trial, 
+        :category_id, 
+        :_destroy
+      ]
     ]
 
   index do
