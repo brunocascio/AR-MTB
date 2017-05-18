@@ -74,28 +74,28 @@
                             aria-multiselectable="true">
                               <% @results[genre][cat].keys.each do |subcat| %>
                                 <% presents = @results[genre][cat][subcat].select{|e| e['absent'] == 0 } %>
-                                <% absent = @results[genre][cat][subcat].select{|e| e['absent'] == 1 } %>
+                                <% absents = @results[genre][cat][subcat].select{|e| e['absent'] == 1 } %>
                                 <div class="panel panel-default">
                                   <div class="panel-heading">
                                     <a
                                       data-toggle="collapse"
                                       data-parent="#accordion-<%= genre %>-<%= cat %>-subcat"
-                                      href="#accordion-<%= genre %>-<%= cat %>-<%= subcat.parameterize('-') %>-content"
+                                      href="#accordion-<%= genre %>-<%= cat %>-<%= subcat.parameterize() %>-content"
                                       aria-expanded="false"
                                       aria-controls="accordion-<%= genre %>-<%= cat %>-subcat">
                                       <h4 class="panel-title"
                                         role="tab"
-                                        id="heading-<%= genre %>-<%= cat %>-<%= subcat.parameterize('-') %>">
+                                        id="heading-<%= genre %>-<%= cat %>-<%= subcat.parameterize() %>">
                                           <strong><%= subcat %></strong>
                                       </h4>
                                     </a>
                                   </div>
                                   <div
                                     class="panel-collapse collapse"
-                                    id="accordion-<%= genre %>-<%= cat %>-<%= subcat.parameterize('-') %>-content"
+                                    id="accordion-<%= genre %>-<%= cat %>-<%= subcat.parameterize() %>-content"
                                     role="tabpanel"
-                                    aria-labelledby="heading-<%= genre %>-<%= cat %>-<%= subcat.parameterize('-') %>">
-                                      <div class="panel-body">
+                                    aria-labelledby="heading-<%= genre %>-<%= cat %>-<%= subcat.parameterize() %>">
+                                      <div class="panel-body table-responsive">
                                         <table class="table table-striped table-bordered results">
                                           <thead>
                                             <tr>
@@ -108,12 +108,20 @@
                                           <tbody>
                                             <% presents.each do |result| %>
                                             <% is_winner = [1,2,3].include? result['position'] %>
-                                            <tr class="<%= 'bold' if is_winner %>">
-                                              <td><%= result['position'] or '-' %></td>
-                                              <td><%= result['participant'] %></td>
-                                              <td><%= result['participant_number'] %></td>
-                                              <td><%= result['time'] or 'No Finalizó' %></td>
-                                            </tr>
+                                              <tr class="<%= 'bold' if is_winner %> <%= 'bg-mute' unless result['finished'] == 1 %>">
+                                                <td><%= result['position'] or '-' %></td>
+                                                <td><%= result['participant'] %></td>
+                                                <td><%= result['participant_number'] %></td>
+                                                <td><%= result['time'] or 'No Finalizó' %></td>
+                                              </tr>
+                                            <% end %>
+                                            <% absents.each do |result| %>
+                                              <tr class="muted">
+                                                <td><%= result['position'] or '-' %></td>
+                                                <td><%= result['participant'] %></td>
+                                                <td>-</td>
+                                                <td>Ausente</td>
+                                              </tr>
                                             <% end %>
                                           </tbody>
                                         </table>

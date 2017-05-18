@@ -6,6 +6,10 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+def random_hour(from, to)
+  (Date.today + rand(from..to).hour + rand(0..60).minutes).strftime("%H:%M")
+end
+
 # Admin Users
 AdminUser.create!(
   email: ENV['ADMIN_USER_EMAIL'],
@@ -171,76 +175,76 @@ guamini = Location.create(name: 'Guaminí')
 
 if Rails.env.development?
   # Championships
-  Championship.create!(
+  championship = Championship.create!(
     name: "Rural Bike (Sudoeste Pcia. Buenos Aires)",
-    year: 2016,
+    year: 2017,
     description: "this is a description"
   )
 
   # Schedules
   Schedule.create!(
     number: 1,
-    date: Date.parse('10-04-2016'),
+    date: Date.parse('10-04-2017'),
     start_time: Time.parse("15:00"),
     description: "",
     location: pigue,
-    championship: Championship.find_by_year( 2016)
+    championship: championship
   )
   Schedule.create!(
     number: 2,
-    date: Date.parse('08-05-2016'),
+    date: Date.parse('08-05-2017'),
     start_time: Time.parse("15:00"),
     description: "",
     location: carhue,
-    championship: Championship.find_by_year( 2016)
+    championship: championship
   )
   Schedule.create!(
     number: 3,
-    date: Date.parse('05-06-2016'),
+    date: Date.parse('05-06-2017'),
     start_time: Time.parse("15:00"),
     description: "",
     location: casbas,
-    championship: Championship.find_by_year( 2016)
+    championship: championship
   )
   Schedule.create!(
     number: 4,
-    date: Date.parse('03-07-2016'),
+    date: Date.parse('03-07-2017'),
     start_time: Time.parse("15:00"),
     description: "",
     location: daireaux,
-    championship: Championship.find_by_year( 2016)
+    championship: championship
   )
   Schedule.create!(
     number: 5,
-    date: Date.parse('07-08-2016'),
+    date: Date.parse('07-08-2017'),
     start_time: Time.parse("15:00"),
     description: "",
     location: salliquelo,
-    championship: Championship.find_by_year( 2016)
+    championship: championship
   )
   Schedule.create!(
     number: 6,
-    date: Date.parse('04-09-2016'),
+    date: Date.parse('04-09-2017'),
     start_time: Time.parse("15:00"),
     description: "",
     location: tres_lomas,
-    championship: Championship.find_by_year( 2016)
+    championship: championship
   )
   Schedule.create!(
     number: 7,
-    date: Date.parse('25-09-2016'),
+    date: Date.parse('25-09-2017'),
     start_time: Time.parse("15:00"),
     description: "",
     location: huanguelen,
-    championship: Championship.find_by_year( 2016)
+    championship: championship
   )
   Schedule.create!(
     number: 8,
-    date: Date.parse('23-10-2016'),
+    date: Date.parse('23-10-2017'),
     start_time: Time.parse("15:00"),
     description: "",
     location: guamini,
-    championship: Championship.find_by_year( 2016)
+    championship: championship
   )
 
   (1..8).each do |i|
@@ -295,12 +299,13 @@ if Rails.env.development?
     "Buckle Gustavo"
   ].each do |fullname|
     first, last = fullname.split
+    date = Date.parse("#{rand(1..27)}-#{rand(1..12)}-#{rand(1968..1972)}")
     Participant.create(
       firstname: first,
       lastname: last,
       genre: :m,
       category: competitiva,
-      birthdate: Date.parse("#{rand(1..27)}-#{rand(1..12)}-#{rand(1968..1972)}"),
+      birthdate: date,
       identification_number: 10000000 + rand(99999999),
       identification_type: [:DNI, :LE, :LC].sample,
       location: Location.order("RAND()").first
@@ -314,12 +319,13 @@ if Rails.env.development?
     "Felix Jimena"
   ].each do |fullname|
     first, last = fullname.split
+    date = "#{rand(1..27)}-#{rand(1..12)}-#{rand(1982..2002)}"
     Participant.create(
       firstname: first,
       lastname: last,
       genre: :f,
       category: promocional,
-      birthdate: Date.parse("#{rand(1..27)}-#{rand(1..12)}-#{rand(1982..2002)}"),
+      birthdate: Date.parse(date),
       identification_number: 10000000 + rand(99999999),
       identification_type: [:DNI, :LE, :LC].sample,
       location: Location.order("RAND()").first
@@ -327,8 +333,35 @@ if Rails.env.development?
   end
 
   # Assign all participants to current championship
-  c = Championship.find_by_year(2016)
-  c.participants << Participant.all
-  c.save
+  championship.participants << Participant.all
+  championship.save
+
+  # Create random results
+  Championship.current.schedules.each do |schedule|
+    schedule.races.each do |race|
+      results = []
+      number = 100
+      Participant.where(category: race.category).each do |p|
+        number += 1
+        absent = [true, false].sample
+        finished = absent ? false : [true, false].sample
+        pnumber = number unless absent
+        time = (random_hour(1,2) if finished) unless absent
+        # add result to array
+        results << Result.new(
+          time: time,
+          participant: p,
+          participant_number: pnumber,
+          finished: finished,
+          absent: absent,
+          race: race
+        )
+      end
+      # results grouped by subcategory
+      results
+        .group_by {|r| r.participant.subcategory.name.parameterize}
+        .each {|sc, res| Result.sync(res) }
+    end
+  end
 
 end

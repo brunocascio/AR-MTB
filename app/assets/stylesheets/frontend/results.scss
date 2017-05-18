@@ -45,6 +45,12 @@
         td {
           color: #555;
         }
+        &.muted {
+         background: #fbfbfb;
+         td {
+          color: #999; 
+         }
+        }
       }
     }
   }

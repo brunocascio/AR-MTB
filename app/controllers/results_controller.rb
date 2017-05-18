@@ -84,7 +84,7 @@ class ResultsController < ApplicationController
   private
     # Never trust parameters from the scary internet, only allow the white list through.
     def validate
-      params.permit results: [ :schedule ]
+      params.permit :schedule
     end
 
     def sort(r)
