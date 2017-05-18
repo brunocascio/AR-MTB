@@ -1,9 +1,5 @@
 jQuery(function ($) {
 
-  $(document).on('ready', function () {
-    $('#loader').hide();
-  });
-
   $("select:not([multiple])").select2({ allowClear: true });
 
   $("select[data-multi-select=true]").multiSelect({
