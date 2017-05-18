@@ -17,4 +17,4 @@ tmp/*
 .env
 .env.example
 README.md
-*.lock
+*.pid
