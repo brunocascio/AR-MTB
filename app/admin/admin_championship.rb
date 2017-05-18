@@ -14,7 +14,14 @@ ActiveAdmin.register Championship do
       :location_id,
       :championship_id,
       :_destroy,
-      races_attributes: [:id, :kms, :lasts, :category_id, :_destroy]
+      races_attributes: [
+        :id, 
+        :kms, 
+        :lasts, 
+        :time_trial, 
+        :category_id, 
+        :_destroy
+      ]
     ]
 
   index do
@@ -35,6 +42,8 @@ ActiveAdmin.register Championship do
   filter :description
 
   form do |f|
+    div
+      p f.semantic_errors *f.object.errors.keys.first
     tabs do
       tab t('app.global.details') do
         f.inputs do
@@ -60,7 +69,7 @@ ActiveAdmin.register Championship do
               r.input :category, as: :select2, wrapper_html: { class: 'inline'}
               r.input :lasts, wrapper_html: { class: 'inline'}
               r.input :kms, wrapper_html: { class: 'inline'}
-              r.input :time_trial, wrapper_html: { class: 'inline'}
+              r.input :time_trial, as: :boolean, wrapper_html: { class: 'inline'}
               r.input :_destroy,
                 :as => :boolean,
                 :required => false,
@@ -97,11 +106,6 @@ ActiveAdmin.register Championship do
             column(:full_name) { |p| link_to p.full_name }
             column :subcategory_formated
           end
-        end
-      end
-      tab t('activerecord.attributes.championship.description') do
-        div do
-          simple_format "#{championship.description}"
         end
       end
     end

@@ -3,7 +3,7 @@
     <h1><strong>Fechas <%= @championship.year %></strong></h1>
     <hr>
     <div class="panel panel-default">
-      <div class="panel-body">
+      <div class="panel-body table-responsive">
         <table class="table table-bordered table-striped">
           <thead>
             <tr>
@@ -17,7 +17,9 @@
           </thead>
           <tbody>
             <% @schedules.each do |s| %>
-            <tr class="<%= 'success' unless @next_schedule.nil? || @next_schedule.date != s.date %>">
+            <% klass = 'success' unless @next_schedule.nil? || @next_schedule.date != s.date %>
+            <% klass = 'muted' unless (s.date >= Date.today) %>
+            <tr class="<%= klass %>">
               <td><%= s.number %></td>
               <td><%= s.date.strftime('%d/%m/%Y') %></td>
               <td><%= s.location.name %></td>

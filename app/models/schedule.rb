@@ -1,7 +1,7 @@
 class Schedule < ApplicationRecord
   belongs_to :championship, required: true
   belongs_to :location, required: true
-  has_many :races
+  has_many :races, inverse_of: :schedule
   has_many :results, through: :races
   accepts_nested_attributes_for :races, :allow_destroy => true
   accepts_nested_attributes_for :results, :allow_destroy => true

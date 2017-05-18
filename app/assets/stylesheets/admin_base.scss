@@ -72,6 +72,9 @@ table tr th {
 }
 
 form input[type='checkbox'] {
+  -webkit-appearance: checkbox;
+  -moz-appearance: checkbox;
+  -ms-progress-appearance: checkbox;
   width: 17px;
   height: 17px;
   background: #fff;
@@ -101,6 +104,22 @@ input:disabled {
 
 [v-cloak] {
   display: none
+}
+
+form {
+  ul.errors {
+    background: rgba(166, 26, 20, 0.5);
+    position: relative;
+    top: -15px;
+    border: 1px solid rgba(166, 26, 20, 0.5);
+    color: #a61a14;
+    height: 50px;
+    align-items: center;
+    justify-content: space-between;
+    display: flex;
+    padding: 20px;
+    border-radius: 4px;
+  }
 }
 
 #notifications {
@@ -175,6 +194,12 @@ input:disabled {
   .ms-list {
     height: 150px;
   }
+
+  .search-input {
+    float: none;
+    width: 100%;
+    height: 30px;
+  }
 }
 
 .has_many_container {
@@ -233,5 +258,14 @@ input:disabled {
       display: block;
       padding-left: 0;
     }
+  }
+}
+
+.has_many_fields {
+  a.button.has_many_remove {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 9;
   }
 }

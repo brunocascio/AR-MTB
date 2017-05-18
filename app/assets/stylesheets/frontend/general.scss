@@ -30,6 +30,17 @@ a:hover {
   }
 }
 
+.turbolinks-progress-bar {
+  background: white;
+  height: 4px;
+
+  &+ body {
+    &> section {
+      opacity: 0.3;
+    }
+  }
+}
+
 .navbar {
 
   &.navbar-inverse {

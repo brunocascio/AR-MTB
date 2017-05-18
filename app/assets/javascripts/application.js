@@ -13,9 +13,3 @@
 //= require jquery
 //= require turbolinks
 //= require_tree ./frontend
-
-jQuery(function($){
-  $(document).on('ready', function(){
-    $('#loader').hide();
-  })
-});
